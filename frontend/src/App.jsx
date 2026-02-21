@@ -1,38 +1,38 @@
-import {useState} from 'react'
-import reactLogo from './assets/react.svg' // відносний імпорт з src/assets/
-import './App.css'
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import Home from "./components/Home";
+import Register from "./components/Register";
+import Login from "./components/Login";
 
+// =========================
+// Головний компонент App
+// =========================
 function App() {
-    const [count, setCount] = useState(0)
-
     return (
-        <>
-            <div>
-                <a href="https://vite.dev" target="_blank" rel="noreferrer">
-                    {/* Файл vite.svg з public/ просто вказуємо як src="/vite.svg" */}
-                    <img src="/vite.svg" className="logo" alt="Vite logo"/>
-                </a>
-                <a href="https://react.dev" target="_blank" rel="noreferrer">
-                    <img src={reactLogo} className="logo react" alt="React logo"/>
-                </a>
-            </div>
+        // -------------------------
+        // Router обгортає всю аплікацію і керує URL
+        // -------------------------
+        <Router>
+            {/* -------------------------
+                Routes містить список всіх маршрутів (URL → компонент)
+                ------------------------- */}
+            <Routes>
+                {/* Домашня сторінка */}
+                <Route path="/" element={<Home/>}/>
 
-            <h1>Vite + React</h1>
+                {/* Сторінка реєстрації */}
+                <Route path="/register" element={<Register/>}/>
 
-            <div className="card">
-                <button onClick={() => setCount((count) => count + 1)}>
-                    count is {count}
-                </button>
-                <p>
-                    Edit <code>src/App.jsx</code> and save to test HMR
-                </p>
-            </div>
+                {/* Сторінка логіну */}
+                <Route path="/login" element={<Login/>}/>
 
-            <p className="read-the-docs">
-                Click on the Vite and React logos to learn more
-            </p>
-        </>
-    )
+                {/* Майбутній маршрут для профілю */}
+                <Route path="/profile" element={<div>Profile Page</div>}/>
+
+                {/* Майбутній маршрут для симуляції маятника */}
+                <Route path="/pendulum" element={<div>Pendulum Simulation</div>}/>
+            </Routes>
+        </Router>
+    );
 }
 
-export default App
+export default App;
