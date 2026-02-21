@@ -20,5 +20,6 @@ public class SecurityBeansConfig {
         // Spring Security буде використовувати цей бін для хешування пароля при реєстрації
         // і для перевірки пароля при логіні
         return new BCryptPasswordEncoder();
+
     }
 }
