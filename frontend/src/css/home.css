@@ -1,0 +1,241 @@
+/* =========================
+   ДИЗАЙНОВИЙ ЯЗИК: ЗМІННІ
+========================= */
+:root {
+    /* Кольори */
+    --color-bg-main: #1e1e1e;
+    --color-bg-panel: rgba(30, 30, 30, 0.95);
+    --color-bg-card: #2c2c2c;
+    --color-bg-card-hover: #1a1a1a;
+    --color-text-main: #e0e0e0;
+    --color-text-secondary: #aaa;
+    --color-accent: #b19cd9;
+    --color-border: #444;
+    --color-placeholder: #333;
+    --color-placeholder-border: #555;
+
+    /* Шрифти */
+    --font-main: Arial, sans-serif;
+
+    /* Розміри */
+    --padding-page: 40px;
+    --padding-card: 15px;
+    --border-radius-card: 18px;
+    --border-radius-btn: 8px;
+    --btn-size-profile: 42px;
+
+    /* Тіні */
+    --shadow-panel: 0 2px 8px rgba(0, 0, 0, 0.4);
+    --shadow-card: 0 6px 18px rgba(0, 0, 0, 0.5);
+    --shadow-neon: 0 0 8px var(--color-accent), 0 0 16px var(--color-accent), 0 0 24px var(--color-accent);
+}
+
+/* =========================
+   БАЗОВІ СТИЛІ СТОРІНКИ
+========================= */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    font-family: var(--font-main);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-bg-main);
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.02), transparent);
+    background-size: 50px 50px;
+    color: var(--color-text-main);
+}
+
+/* =========================
+   ВЕРХНЯ ПАНЕЛЬ (HEADER)
+========================= */
+.top-bar {
+    width: 100%;
+    padding: var(--padding-page);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    background: var(--color-bg-panel);
+    border-bottom: 2px solid var(--color-border);
+    box-shadow: var(--shadow-panel);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 26px;
+    font-weight: bold;
+    color: var(--color-text-main);
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+/* =========================
+   КНОПКИ АВТОРИЗАЦІЇ
+========================= */
+.auth-btn {
+    padding: 8px 14px;
+    background: var(--color-bg-main);
+    color: var(--color-text-main);
+    text-decoration: none;
+    border: none;
+    border-radius: var(--border-radius-btn);
+    transition: 0.3s ease;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.auth-btn:hover {
+    background: #0d0d0d;
+    color: var(--color-accent);
+    box-shadow: var(--shadow-neon);
+}
+
+/* =========================
+   КНОПКА ПРОФІЛЮ
+========================= */
+.profile-btn {
+    width: var(--btn-size-profile);
+    height: var(--btn-size-profile);
+    border-radius: 50%;
+    background: var(--color-bg-main);
+    color: var(--color-text-main);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s ease;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.profile-btn:hover {
+    background: #0d0d0d;
+    color: var(--color-accent);
+    box-shadow: var(--shadow-neon);
+}
+
+/* =========================
+   СІТКА КАРТОК СИМУЛЯЦІЙ
+========================= */
+.simulation-grid {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    gap: 60px;
+    margin-top: auto;
+    padding: 40px 20px;
+    box-sizing: border-box;
+}
+
+/* =========================
+   КАРТКА СИМУЛЯЦІЇ
+========================= */
+.sim-card {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    background: var(--color-bg-card);
+    border-radius: var(--border-radius-card);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    position: relative;
+    text-decoration: none;
+    color: var(--color-text-main);
+    transition: filter 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.sim-card:hover {
+    background-color: var(--color-bg-card-hover);
+    color: var(--color-accent);
+    box-shadow: var(--shadow-neon);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+}
+
+.sim-card:hover .sim-title,
+.sim-card:hover .soon-text {
+    color: var(--color-accent);
+}
+
+/* =========================
+   ЗОБРАЖЕННЯ КАРТОК
+========================= */
+.sim-img {
+    width: 100%;
+    height: 180px;
+    background-size: cover;
+    background-position: center;
+    transition: filter 0.2s ease;
+}
+
+.placeholder {
+    background: var(--color-placeholder);
+    border-bottom: 4px solid var(--color-placeholder-border);
+}
+
+/* =========================
+   ТИТУЛ І ТЕКСТ КАРТОК
+========================= */
+.sim-title {
+    padding: var(--padding-card);
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--color-text-main);
+}
+
+.soon-text {
+    padding: 0 var(--padding-card) 20px var(--padding-card);
+    font-size: 14px;
+    color: var(--color-text-secondary);
+}
+
+.disabled {
+    opacity: 0.55;
+    pointer-events: none;
+}
+
+/* =========================
+   ФУТЕР
+========================= */
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #ccc;
+}
+
+/* =========================
+   АДАПТИВНІСТЬ
+========================= */
+@media (max-width: 1000px) {
+    .simulation-grid {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+    }
+
+    .sim-card {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .auth-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .top-bar {
+        padding: 10px 15px;
+    }
+}
