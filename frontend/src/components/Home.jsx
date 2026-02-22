@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
 import "../css/home.css"; // Підключаємо стилі для головної сторінки
 
@@ -6,6 +6,14 @@ import "../css/home.css"; // Підключаємо стилі для голов
 // Головний компонент Home
 // =========================
 export default function Home() {
+
+    const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        setIsAuthenticated(false); // 🔥 ОНОВЛЮЄ UI миттєво
+    };
+
     return (
         <div>
             {/* =========================
@@ -17,20 +25,30 @@ export default function Home() {
 
                 {/* Кнопки авторизації та профілю */}
                 <div className="auth-buttons">
-                    {/* Перехід на сторінку логіну */}
-                    <Link to="/login" className="auth-btn">Login</Link>
+                    {!isAuthenticated && (
+                        <>
+                            <Link to="/login" className="auth-btn">Login</Link>
+                            <Link to="/register" className="auth-btn">Register</Link>
+                        </>
+                    )}
 
-                    {/* Перехід на сторінку реєстрації */}
-                    <Link to="/register" className="auth-btn">Register</Link>
+                    {isAuthenticated && (
+                        <>
+                            <Link to="/profile" className="profile-btn">
+                                <svg width="30" height="30" viewBox="0 0 24 24"
+                                     fill="none" stroke="currentColor"
+                                     strokeWidth="2" strokeLinecap="round"
+                                     strokeLinejoin="round">
+                                    <circle cx="12" cy="8" r="4"></circle>
+                                    <path d="M6 20c0-4 3-6 6-6s6 2 6 6"></path>
+                                </svg>
+                            </Link>
 
-                    {/* Кнопка профілю (поки просто іконка) */}
-                    <Link to="/profile" className="profile-btn">
-                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                             strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <circle cx="12" cy="8" r="4"></circle>
-                            <path d="M6 20c0-4 3-6 6-6s6 2 6 6"></path>
-                        </svg>
-                    </Link>
+                            <button onClick={handleLogout} className="auth-btn">
+                                Logout
+                            </button>
+                        </>
+                    )}
                 </div>
             </header>
 
