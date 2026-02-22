@@ -33,21 +33,49 @@ export async function registerUser(userData) {
 // =========================
 export async function loginUser(credentials) {
     try {
-        // POST-запит на бекенд для логіну
         const response = await fetch(`${API_URL}/login`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(credentials), // Передаємо {username, password}
+            body: JSON.stringify(credentials),
         });
 
         if (!response.ok) {
             const errorMessage = await response.text();
-            throw new Error(errorMessage); // Генеруємо помилку, якщо логін неуспішний
+            throw new Error(errorMessage);
         }
 
-        // Повертаємо текст відповіді, наприклад "Logged in successfully."
-        return await response.text();
+        const token = await response.text();
+        localStorage.setItem("token", token);
+
+        return token;
+
     } catch (error) {
-        throw error; // Проброс помилки для обробки у компоненті React
+        throw error;
     }
+}
+
+
+
+
+
+
+
+
+export function logoutUser() {
+    localStorage.removeItem("token");
+}
+
+export async function authFetch(url, options = {}) {
+    const token = localStorage.getItem("token");
+
+    const headers = {
+        ...options.headers,
+        Authorization: token ? `Bearer ${token}` : "",
+        "Content-Type": "application/json"
+    };
+
+    return fetch(url, {
+        ...options,
+        headers
+    });
 }
