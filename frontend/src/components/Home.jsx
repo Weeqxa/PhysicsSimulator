@@ -80,7 +80,7 @@ export default function Home() {
                 ФУТЕР
                 ========================= */}
             <footer>
-                <p>UX Project – Physical Simulations</p>
+                <p>BP Project – Physical Simulations</p>
             </footer>
         </div>
     );
