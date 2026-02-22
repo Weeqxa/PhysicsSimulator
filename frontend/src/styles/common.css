@@ -1,0 +1,170 @@
+:root {
+    --color-bg-main: #1e1e1e;
+    --color-bg-panel: rgba(30, 30, 30, 0.95);
+    --color-text-main: #f0f0f0;
+    --color-accent: #b19cd9;
+    --font-main: Arial, sans-serif;
+    --border-radius-btn: 8px;
+    --shadow-panel: 0 2px 8px rgba(0, 0, 0, 0.4);
+    --shadow-neon: 0 0 8px var(--color-accent),
+    0 0 16px var(--color-accent),
+    0 0 24px var(--color-accent);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: var(--font-main);
+    color: var(--color-text-main);
+    background: var(--color-bg-main);
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.02), transparent);
+    background-size: 50px 50px;
+}
+
+
+/* =========================
+   Верхня панель - адаптивність
+========================= */
+.top-bar {
+    width: 100%;
+    padding: 15px 20px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: var(--color-bg-panel);
+    border-bottom: 2px solid #333;
+    box-shadow: var(--shadow-panel);
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+/* Контейнер кнопок у top-bar */
+.top-right-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap; /* дозволяє кнопкам переноситись на новий рядок, якщо бракує місця */
+}
+
+/* Кнопки */
+.top-right-buttons .btn {
+    padding: 10px 20px;
+    font-size: 14px;
+}
+
+/* =========================
+   Адаптивність для мобільних
+========================= */
+@media (max-width: 768px) {
+    .top-bar {
+        padding: 0 20px;
+    }
+
+    .top-right-buttons .btn {
+        padding: 8px 15px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .top-bar {
+        flex-direction: column; /* ставимо вертикально */
+        align-items: flex-start;
+        padding: 10px 15px;
+        gap: 10px;
+    }
+
+    .top-right-buttons {
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .top-right-buttons .btn {
+        flex: 1 1 auto; /* кнопки заповнюють доступний рядок */
+        text-align: center;
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    .logo {
+        font-size: 22px;
+    }
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+/* =========================
+   Профільна кнопка
+========================= */
+
+.profile-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--color-bg-main);
+    color: var(--color-text-main);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: 0.3s ease;
+    margin-right: 15px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.profile-btn:hover {
+    background: #0d0d0d;
+    color: var(--color-accent);
+    box-shadow: var(--shadow-neon);
+}
+
+/* =========================
+   УНІВЕРСАЛЬНА КНОПКА
+========================= */
+
+.btn {
+    padding: 14px 30px;
+    background: var(--color-bg-main);
+    color: var(--color-text-main);
+
+    border: none;
+    border-radius: var(--border-radius-btn);
+
+    font-size: 14px;
+    cursor: pointer;
+
+    transition: 0.3s ease;
+
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background: #0d0d0d;
+    color: var(--color-accent);
+    box-shadow: var(--shadow-neon);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+}
