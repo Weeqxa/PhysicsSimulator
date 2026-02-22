@@ -19,25 +19,16 @@ export default function Login() {
     // Обробник сабміту форми
     // -------------------------
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Забираємо стандартну поведінку форми
-        setMessage("");     // Очищаємо попередні повідомлення
+        e.preventDefault();
+        setMessage("");
 
         try {
-            // Виконуємо логін через бекенд
-            const result = await loginUser({username, password});
+            await loginUser({username, password});
 
-            // Встановлюємо повідомлення про результат
-            setMessage(result);
+            // Якщо без помилки — редирект
+            navigate("/");
 
-            // -------------------------
-            // Редирект на головну після успішного логіну
-            // -------------------------
-            // Якщо у відповіді сервера є "success", переходимо на "/"
-            if (result.toLowerCase().includes("success")) {
-                navigate("/"); // Редирект на домашню сторінку
-            }
         } catch (error) {
-            // Перехоплюємо помилки (сервер недоступний, неправильний логін і т.д.)
             setMessage(error.message);
         }
     };
