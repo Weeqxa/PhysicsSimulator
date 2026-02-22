@@ -1,6 +1,7 @@
 package com.example.physicssimulator.controller;
 
 import com.example.physicssimulator.entity.User;
+import com.example.physicssimulator.service.JwtService;
 import com.example.physicssimulator.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,11 +21,16 @@ public class AuthController {
     private final UserService userService; // Сервіс для роботи з користувачами (збереження, пошук)
     private final PasswordEncoder passwordEncoder; // Для хешування та перевірки паролів
 
+    private final JwtService jwtService;
+
+
     // Конструктор для впровадження залежностей через Spring
     public AuthController(UserService userService,
-                          PasswordEncoder passwordEncoder) {
+                          PasswordEncoder passwordEncoder,
+                          JwtService jwtService) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
     }
 
     // =========================
@@ -120,7 +126,8 @@ public class AuthController {
         // -------------------------
         // Успішний логін
         // -------------------------
-        return ResponseEntity.ok("Logged in successfully.");
+        String token = jwtService.generateToken(user.getUsername());
+        return ResponseEntity.ok(token);
     }
 
 }
