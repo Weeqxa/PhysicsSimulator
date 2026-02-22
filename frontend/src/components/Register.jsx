@@ -1,67 +1,46 @@
-import {useState} from "react";
-import {useNavigate} from "react-router-dom"; // хук для програмної навігації
-import {registerUser} from "../services/api"; // функція для реєстрації через бекенд
-import "../css/authorizationStyle.css"; // стилі для сторінки
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { registerUser } from "../services/api";
+import "../styles/common.css";
+import styles from "../styles/Auth.module.css";
 
 export default function Register() {
-    // -------------------------
-    // Станові змінні
-    // -------------------------
-    const [username, setUsername] = useState(""); // значення поля username
-    const [password, setPassword] = useState(""); // значення поля password
-    const [name, setName] = useState("");         // значення поля full name
-    const [email, setEmail] = useState("");       // значення поля email
-    const [message, setMessage] = useState("");   // повідомлення про успіх або помилку
+    const [username, setUsername] = useState("");
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [message, setMessage] = useState("");
+    const navigate = useNavigate();
 
-    const navigate = useNavigate(); // створюємо навігатор для редиректів
-
-    // -------------------------
-    // Обробник сабміту форми
-    // -------------------------
     const handleSubmit = async (e) => {
-        e.preventDefault(); // зупиняємо стандартну поведінку форми
-        setMessage("");     // очищаємо попередні повідомлення
+        e.preventDefault();
+        setMessage("");
 
         try {
-            // Виконуємо запит на бекенд для реєстрації користувача
-            const result = await registerUser({username, password, name, email});
-
-            // Відображаємо повідомлення від сервера
+            const result = await registerUser({ username, password, name, email });
             setMessage(result);
 
-            // -------------------------
-            // Редирект на сторінку логіну після успішної реєстрації
-            // -------------------------
-            // Трохи затримуємо, щоб користувач побачив повідомлення
             if (result.toLowerCase().includes("success")) {
-                setTimeout(() => {
-                    navigate("/login"); // редирект на логін
-                }, 1000);
+                setTimeout(() => navigate("/login"), 1000);
             }
         } catch (error) {
-            // Перехоплюємо помилки (наприклад, сервер недоступний або username зайнятий)
             setMessage(error.message);
         }
     };
 
     return (
         <div>
-            {/* =========================
-                ВЕРХНЯ ПАНЕЛЬ
-                ========================= */}
+            {/* ========================= ВЕРХНЯ ПАНЕЛЬ ========================= */}
             <div className="top-bar">
                 <div className="logo">Physical Simulations</div>
-                <div className="top-right-buttons">
-                    <a href="/" className="button home-button">Home</a>
+                <div className={styles["top-right-buttons"]}>
+                    <a href="/" className="btn">Home</a>
                 </div>
             </div>
 
-            {/* =========================
-                КОНТЕЙНЕР ФОРМИ
-                ========================= */}
-            <div className="auth-container">
+            {/* ========================= КОНТЕЙНЕР ФОРМИ ========================= */}
+            <div className={styles["auth-container"]}>
                 <h2>Register</h2>
-
                 <form onSubmit={handleSubmit}>
                     <input
                         type="text"
@@ -91,18 +70,14 @@ export default function Register() {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
-                    <button type="submit" className="auth-btn form-btn">Register</button>
+                    <button type="submit" className="btn form-btn">Register</button>
                 </form>
 
-                {/* Посилання на логін */}
-                <div className="form-footer">
-                    <span>
-                        Already have an account? <a href="/login">Login</a>
-                    </span>
+                <div className={styles["form-footer"]}>
+                    Already have an account? <a href="/login">Login</a>
                 </div>
 
-                {/* Повідомлення про успіх або помилку */}
-                {message && <p style={{marginTop: "15px", color: "var(--color-accent)"}}>{message}</p>}
+                {message && <p className={styles.message}>{message}</p>}
             </div>
         </div>
     );

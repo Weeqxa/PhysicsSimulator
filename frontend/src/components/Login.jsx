@@ -1,33 +1,22 @@
-import {useState} from "react";
-import {useNavigate} from "react-router-dom"; // Хук для навігації між маршрутами
-import {loginUser} from "../services/api"; // Функція для логіну через бекенд
-import "../css/authorizationStyle.css"; // Стилі для сторінки авторизації
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { loginUser } from "../services/api";
+import "../styles/common.css";       // глобальні змінні та базові стилі
+import styles from "../styles/Auth.module.css"; // специфічні стилі авторизації
 
-// =========================
-// Компонент Login
-// =========================
 export default function Login() {
-    // -------------------------
-    // Станові змінні
-    // -------------------------
-    const [username, setUsername] = useState(""); // Значення інпуту Username
-    const [password, setPassword] = useState(""); // Значення інпуту Password
-    const [message, setMessage] = useState("");   // Повідомлення про помилку або успіх
-    const navigate = useNavigate();               // Хук для редиректу
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [message, setMessage] = useState("");
+    const navigate = useNavigate();
 
-    // -------------------------
-    // Обробник сабміту форми
-    // -------------------------
     const handleSubmit = async (e) => {
         e.preventDefault();
         setMessage("");
 
         try {
-            await loginUser({username, password});
-
-            // Якщо без помилки — редирект
+            await loginUser({ username, password });
             navigate("/");
-
         } catch (error) {
             setMessage(error.message);
         }
@@ -35,24 +24,17 @@ export default function Login() {
 
     return (
         <div>
-            {/* =========================
-                ВЕРХНЯ ПАНЕЛЬ
-                ========================= */}
+            {/* ========================= ВЕРХНЯ ПАНЕЛЬ ========================= */}
             <div className="top-bar">
                 <div className="logo">Physical Simulations</div>
-                <div className="top-right-buttons">
-                    {/* Повернення на головну через звичайне посилання */}
-                    <a href="/" className="button home-button">Home</a>
+                <div className={styles["top-right-buttons"]}>
+                    <a href="/" className="btn">Home</a>
                 </div>
             </div>
 
-            {/* =========================
-                КОНТЕЙНЕР ФОРМИ
-                ========================= */}
-            <div className="auth-container">
+            {/* ========================= КОНТЕЙНЕР ФОРМИ ========================= */}
+            <div className={styles["auth-container"]}>
                 <h2>Login</h2>
-
-                {/* Форма для логіну */}
                 <form onSubmit={handleSubmit}>
                     <input
                         type="text"
@@ -68,19 +50,14 @@ export default function Login() {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
-
-                    <button type="submit" className="auth-btn form-btn">Login</button>
+                    <button type="submit" className="btn form-btn">Login</button>
                 </form>
 
-                {/* Посилання на реєстрацію */}
-                <div className="form-footer">
-                    <span>
-                        Don’t have an account? <a href="/register">Register</a>
-                    </span>
+                <div className={styles["form-footer"]}>
+                    Don’t have an account? <a href="/register">Register</a>
                 </div>
 
-                {/* Повідомлення про помилку або успіх */}
-                {message && <p style={{marginTop: "15px", color: "var(--color-accent)"}}>{message}</p>}
+                {message && <p className={styles.message}>{message}</p>}
             </div>
         </div>
     );
