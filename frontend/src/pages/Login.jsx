@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../services/api";
-import "../styles/common.css";       // глобальні змінні та базові стилі
+import "../styles/Common.css";       // глобальні змінні та базові стилі
 import styles from "../styles/Auth.module.css"; // специфічні стилі авторизації
 
 export default function Login() {

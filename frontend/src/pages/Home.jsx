@@ -1,13 +1,12 @@
-import React, {useState, useRef, useEffect} from "react";
-import {Link} from "react-router-dom";
-import "../styles/common.css";
+import React, { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
+import "../styles/Common.css";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
     const [isAuthenticated, setIsAuthenticated] = useState(
         !!localStorage.getItem("token")
     );
-
     const [isDesktop, setIsDesktop] = useState(window.innerWidth > 480);
 
     useEffect(() => {
@@ -32,12 +31,13 @@ export default function Home() {
         }
     };
 
+
+
     return (
         <div className="wrapper">
             {/* ========================= ВЕРХНЯ ПАНЕЛЬ ========================= */}
             <header className="top-bar">
                 <div className="logo">Physical Simulations</div>
-
                 <div className={styles["home-auth-buttons"]}>
                     {!isAuthenticated ? (
                         <>
@@ -47,16 +47,7 @@ export default function Home() {
                     ) : (
                         <>
                             <Link to="/profile" className="profile-btn">
-                                <svg
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="2"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                >
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <circle cx="12" cy="8" r="4"/>
                                     <path d="M6 20c0-4 3-6 6-6s6 2 6 6"/>
                                 </svg>
@@ -69,29 +60,37 @@ export default function Home() {
 
             {/* ========================= ОСНОВНИЙ КОНТЕНТ ========================= */}
             <div className="content">
-                {/* будь-який додатковий контент */}
+                {/* Вітальний текст */}
+                <div className={styles["intro-section"]}>
+                    <h1>Vitajte vo virtuálnej fyzikálnej laboratóriu!</h1>
+                    <p>
+                        Preskúmajte{' '}
+                        <span className={styles.highlight}>mechaniku</span>,{' '}
+                        <span className={styles.highlight}>magnetizmus</span>,{' '}
+                        <span className={styles.highlight}>difúziu</span>,{' '}
+                        <span className={styles.highlight}>pružiny</span> a{' '}
+                        <span className={styles.highlight}>plávajúce telieska</span> prostredníctvom interaktívnych simulácií.<br/>
+                        Experimentujte s parametrami a sledujte okamžité výsledky – učte sa fyziku vizuálne a intuitívne!
+                    </p>
+                </div>
 
-                {isDesktop && <div style={{height: "400px", visibility: "hidden"}}/>}
+                {isDesktop && <div style={{ height: "40px", visibility: "hidden" }} />}
 
                 {/* ========================= КАРУСЕЛЬ СИМУЛЯЦІЙ ========================= */}
                 <div
                     className={styles["simulation-carousel-wrapper"]}
                     ref={carouselRef}
                     onWheel={handleWheel}
-                    style={{marginTop: "auto"}} // витискаємо карусель до низу
                 >
                     <div className={styles["simulations-carousel"]}>
                         <Link to="/pendulum" className={styles["sim-card"]}>
-                            <div
-                                className={styles["sim-img"]}
-                                style={{backgroundImage: "url('/images/pendulum.jpg')"}}
-                            />
+                            <div className={styles["sim-img"]} style={{ backgroundImage: "url('/images/pendulum.jpg')" }} />
                             <div className={styles["sim-title"]}>Pendulum Simulation</div>
                         </Link>
 
                         {[1, 2, 3, 4].map((item) => (
                             <div key={item} className={`${styles["sim-card"]} ${styles.disabled}`}>
-                                <div className={`${styles["sim-img"]} ${styles.placeholder}`}/>
+                                <div className={`${styles["sim-img"]} ${styles.placeholder}`} />
                                 <div className={styles["sim-title"]}>Coming Soon {item}</div>
                                 <div className={styles["soon-text"]}>Not available</div>
                             </div>
