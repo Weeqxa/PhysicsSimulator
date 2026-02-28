@@ -1,3 +1,103 @@
+/* =========================
+   Вітальний блок по центру
+========================= */
+.intro-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* вертикально центр */
+    align-items: center;     /* горизонтально центр */
+    text-align: center;
+    padding: 100px 20px 40px 20px; /* відступ зверху та знизу */
+    color: var(--color-text-main);
+    position: relative; /* щоб плавання було поверх інших блоків */
+    z-index: 10;
+}
+
+/* =========================
+   Заголовок - плавне плавання + fadeIn
+========================= */
+.intro-section h1 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 40px;
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 1s forwards, float 6s ease-in-out infinite alternate;
+}
+
+/* =========================
+   Абзац - протилежне плавання + fadeIn
+========================= */
+.intro-section p {
+    font-size: 18px;
+    line-height: 1.6;
+    max-width: 800px;
+    opacity: 0;
+    transform: translateY(20px);
+
+    /* анімація появи */
+    animation-name: fadeUp, floatReverse;
+    animation-duration: 1s, 6s;
+    animation-delay: 0.5s, 0s;
+    animation-fill-mode: forwards, both;
+    animation-timing-function: ease, ease-in-out;
+    animation-iteration-count: 1, infinite;
+    animation-direction: normal, alternate;
+}
+
+/* =========================
+   Анімація появи тексту
+========================= */
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================
+   Плавне “плавання” заголовка
+========================= */
+@keyframes float {
+    0%   { transform: translate(0px, 0px) rotate(0deg); }
+    25%  { transform: translate(3px, -2px) rotate(0.3deg); }
+    50%  { transform: translate(-2px, 2px) rotate(-0.3deg); }
+    75%  { transform: translate(2px, -1px) rotate(0.2deg); }
+    100% { transform: translate(0px, 0px) rotate(0deg); }
+}
+
+/* =========================
+   Плавне “плавання” абзацу (протилежно)
+========================= */
+@keyframes floatReverse {
+    0%   { transform: translate(0px, 0px) rotate(0deg); }
+    25%  { transform: translate(-3px, 2px) rotate(-0.3deg); }
+    50%  { transform: translate(2px, -2px) rotate(0.3deg); }
+    75%  { transform: translate(-2px, 1px) rotate(-0.2deg); }
+    100% { transform: translate(0px, 0px) rotate(0deg); }
+}
+
+/* =========================
+   Акцентні слова
+========================= */
+.highlight {
+    color: var(--color-accent);
+    font-weight: 700;
+    text-shadow: 0 0 1px var(--color-accent), 0 0 2px var(--color-accent);
+    animation: pulse 3s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        text-shadow: 0 0 1px var(--color-accent), 0 0 2px var(--color-accent);
+    }
+    50% {
+        text-shadow: 0 0 1.5px var(--color-accent), 0 0 3px var(--color-accent);
+    }
+}
+
+
 /* ==========================
    Карусель та кнопки
 ========================== */
@@ -179,4 +279,21 @@ footer {
     .simulations-carousel {
         padding: 0 20px;
     }
+}
+
+
+/* =========================
+   Адаптивність для мобільних
+========================= */
+@media (max-width: 768px) {
+    .intro-section h1 { font-size: 28px; }
+    .intro-section p { font-size: 16px; }
+}
+
+@media (max-width: 480px) {
+    .intro-section {
+        padding: 60px 16px 30px 16px;
+    }
+    .intro-section h1 { font-size: 24px; margin-bottom: 30px; }
+    .intro-section p { font-size: 14px; line-height: 1.5; }
 }
