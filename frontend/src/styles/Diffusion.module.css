@@ -1,0 +1,179 @@
+/* =========================
+   Контейнер всього блоку
+========================= */
+.simulationContainer {
+    display: flex;
+    justify-content: center;  /* горизонтально центр */
+    align-items: center;      /* вертикально центр */
+    gap: 40px;
+    padding: 20px;
+    box-sizing: border-box;
+    flex-direction: row;
+    height: calc(100vh - 70px); /* висота екрану мінус топ-панель */
+    overflow: hidden; /* щоб нічого не вилізло */
+}
+
+/* =========================
+   Ліва колонка - Canvas
+========================= */
+.canvasColumn {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.canvas {
+    background: var(--color-bg-main);
+    width: 900px;
+    height: 100%;       /* повністю займати колонку */
+    max-width: none;    /* прибрати обмеження */
+    object-fit: fill;   /* заповнює всю область */
+    box-shadow: var(--shadow-panel);
+    border-radius: 12px;
+}
+
+/* Колонка праворуч: вертикальний стек */
+.controlsColumn {
+    flex: 0 0 700px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 40px;
+
+    margin-left: 60px;
+}
+
+/* =========================
+   Текстове пояснення зверху праворуч
+========================= */
+.infoText {
+    text-align: left;
+    color: var(--color-text-main);
+    font-size: 18px;
+    line-height: 1.7;
+    max-width: 100%;
+    display: inline-block;
+    animation: floatReverse 6s ease-in-out infinite alternate;
+}
+
+/* Плавне плавання (протилежний напрямок до заголовка) */
+@keyframes floatReverse {
+    0% { transform: translate(0px,0px) rotate(0deg);}
+    25% { transform: translate(-2px,1px) rotate(-0.2deg);}
+    50% { transform: translate(2px,-1px) rotate(0.2deg);}
+    75% { transform: translate(-1px,2px) rotate(-0.1deg);}
+    100% { transform: translate(0px,0px) rotate(0deg);}
+}
+
+/* Акцентні слова */
+.infoText .highlight {
+    color: var(--color-accent);
+    font-weight: 700;
+    font-size: 20px;
+    text-shadow: 0 0 1px var(--color-accent), 0 0 2px var(--color-accent);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { text-shadow: 0 0 1px var(--color-accent), 0 0 2px var(--color-accent);}
+    50% { text-shadow: 0 0 2px var(--color-accent), 0 0 4px var(--color-accent);}
+}
+
+/* =========================
+   Панель керування
+========================= */
+.controls {
+    background: var(--color-bg-main);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px var(--shadow-panel);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    color: var(--color-text-main);
+}
+
+/* Ряди слайдерів */
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+label { flex: 1; }
+input[type=range] { flex: 2; accent-color: var(--color-accent); }
+
+/* Кнопки */
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+/* =========================
+   Адаптивність для планшетів і мобільних
+========================= */
+@media (max-width: 900px) {
+    .simulationContainer {
+        flex-direction: column; /* вертикальна структура */
+        align-items: center;
+        justify-content: flex-start; /* початок зверху */
+        height: auto;
+        gap: 30px;
+    }
+
+    .controlsColumn {
+        width: 100%;
+        align-items: center;
+    }
+
+    .canvasColumn {
+        width: 100%;
+    }
+
+    .canvas {
+        width: 90%;
+        height: auto;
+    }
+
+    .controls {
+        width: 90%;
+        max-width: none;
+        padding: 20px;
+        gap: 25px;
+    }
+
+    .infoText {
+        font-size: 16px;
+        text-align: center;
+        margin-top: auto;
+    }
+
+    .infoText .highlight {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .infoText {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .infoText .highlight {
+        font-size: 16px;
+    }
+
+    .canvas {
+        width: 95%;
+        height: auto;
+    }
+
+    .controls {
+        padding: 15px;
+        gap: 20px;
+    }
+}
