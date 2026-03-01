@@ -1,7 +1,9 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, {useState, useRef, useEffect} from "react";
+import {Link} from "react-router-dom";
 import "../styles/Common.css";
 import styles from "../styles/Home.module.css";
+import pendulumImg from "../assets/images/pendulum.jpg";
+import diffusionImg from "../assets/images/diffusion.jpg";
 
 export default function Home() {
     const [isAuthenticated, setIsAuthenticated] = useState(
@@ -32,7 +34,6 @@ export default function Home() {
     };
 
 
-
     return (
         <div className="wrapper">
             {/* ========================= ВЕРХНЯ ПАНЕЛЬ ========================= */}
@@ -47,7 +48,8 @@ export default function Home() {
                     ) : (
                         <>
                             <Link to="/profile" className="profile-btn">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <circle cx="12" cy="8" r="4"/>
                                     <path d="M6 20c0-4 3-6 6-6s6 2 6 6"/>
                                 </svg>
@@ -69,12 +71,14 @@ export default function Home() {
                         <span className={styles.highlight}>magnetizmus</span>,{' '}
                         <span className={styles.highlight}>difúziu</span>,{' '}
                         <span className={styles.highlight}>pružiny</span> a{' '}
-                        <span className={styles.highlight}>plávajúce telieska</span> prostredníctvom interaktívnych simulácií.<br/>
-                        Experimentujte s parametrami a sledujte okamžité výsledky – učte sa fyziku vizuálne a intuitívne!
+                        <span className={styles.highlight}>plávajúce telieska</span> prostredníctvom interaktívnych
+                        simulácií.<br/>
+                        Experimentujte s parametrami a sledujte okamžité výsledky – učte sa fyziku vizuálne a
+                        intuitívne!
                     </p>
                 </div>
 
-                {isDesktop && <div style={{ height: "40px", visibility: "hidden" }} />}
+                {isDesktop && <div style={{height: "40px", visibility: "hidden"}}/>}
 
                 {/* ========================= КАРУСЕЛЬ СИМУЛЯЦІЙ ========================= */}
                 <div
@@ -83,19 +87,44 @@ export default function Home() {
                     onWheel={handleWheel}
                 >
                     <div className={styles["simulations-carousel"]}>
-                        <Link to="/pendulum" className={styles["sim-card"]}>
-                            <div className={styles["sim-img"]} style={{ backgroundImage: "url('/images/pendulum.jpg')" }} />
-                            <div className={styles["sim-title"]}>Pendulum Simulation</div>
-                        </Link>
-
-                        {[1, 2, 3, 4].map((item) => (
-                            <div key={item} className={`${styles["sim-card"]} ${styles.disabled}`}>
-                                <div className={`${styles["sim-img"]} ${styles.placeholder}`} />
-                                <div className={styles["sim-title"]}>Coming Soon {item}</div>
-                                <div className={styles["soon-text"]}>Not available</div>
-                            </div>
+                        {[
+                            {
+                                path: "/pendulum",
+                                title: "Kyvadlo",
+                                image: pendulumImg
+                            },
+                            {
+                                path: "/diffusion",
+                                title: "Difúzia",
+                                image: diffusionImg
+                            },
+                            {
+                                path: "/magnet",
+                                title: "Magnetické pole",
+                                image: "/images/magnet.jpg"
+                            },
+                            {
+                                path: "/spring",
+                                title: "Pružina",
+                                image: "/images/spring.jpg"
+                            },
+                            {
+                                path: "/vztlak",
+                                title: "Vztlak",
+                                image: "/images/vztlak.jpg"
+                            }
+                        ].map((sim) => (
+                            <Link key={sim.path} to={sim.path} className={styles["sim-card"]}>
+                                <div
+                                    className={styles["sim-img"]}
+                                    style={{ backgroundImage: `url('${sim.image}')` }}
+                                />
+                                <div className={styles["sim-title"]}>{sim.title}</div>
+                            </Link>
                         ))}
                     </div>
+
+
                 </div>
             </div>
 
