@@ -4,6 +4,7 @@ import "../styles/Common.css";
 import styles from "../styles/Home.module.css";
 import pendulumImg from "../assets/images/pendulum.jpg";
 import diffusionImg from "../assets/images/diffusion.jpg";
+import springImg from "../assets/images/spring.jpg";
 
 export default function Home() {
     const [isAuthenticated, setIsAuthenticated] = useState(
@@ -106,7 +107,7 @@ export default function Home() {
                             {
                                 path: "/spring",
                                 title: "Pružina",
-                                image: "/images/spring.jpg"
+                                image: springImg
                             },
                             {
                                 path: "/vztlak",
