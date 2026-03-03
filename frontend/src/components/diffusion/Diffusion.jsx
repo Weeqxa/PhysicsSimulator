@@ -13,11 +13,18 @@ export default class Diffusion {
         this.particleCount = particleCount;
         this.radius = radius;
         this.mass = mass;
-        this.temperature = temperature; // впливає на початкову швидкість
+        this.temperature = temperature;
+
+        // Фізика
+        this.gamma = 2;        // тертя
+        this.k = 1;            // умовна стала Больцмана
+        this.visualScale = 80; // масштаб для пікселів
+
         this.particles = [];
 
         this.isPaused = false;
         this.animationId = null;
+        this.lastTime = null;
 
         this.createParticles();
         this.draw = this.draw.bind(this);
@@ -26,20 +33,20 @@ export default class Diffusion {
 
     createParticles() {
         this.particles = [];
+
         for (let i = 0; i < this.particleCount; i++) {
-            const speedFactor = this.temperature / this.mass; // маса впливає на ефективну швидкість
             this.particles.push({
-                x: Math.random() * this.canvas.width,
-                y: Math.random() * this.canvas.height,
-                vx: (Math.random() - 0.5) * speedFactor,
-                vy: (Math.random() - 0.5) * speedFactor,
+                x: Math.random() * (this.canvas.width - 2 * this.radius) + this.radius,
+                y: Math.random() * (this.canvas.height - 2 * this.radius) + this.radius,
+                vx: 0,
+                vy: 0,
                 color: i < this.particleCount / 2 ? "red" : "blue",
                 radius: this.radius,
             });
         }
     }
 
-    updateParameters({ particleCount, radius, mass, temperature }) {
+    updateParameters({particleCount, radius, mass, temperature}) {
         if (particleCount !== undefined) this.particleCount = particleCount;
         if (radius !== undefined) this.radius = radius;
         if (mass !== undefined) this.mass = mass;
@@ -63,25 +70,66 @@ export default class Diffusion {
         cancelAnimationFrame(this.animationId);
     }
 
-    draw() {
+    draw(timestamp) {
+        if (!this.lastTime) {
+            this.lastTime = timestamp;
+            this.animationId = requestAnimationFrame(this.draw);
+            return;
+        }
+
+        // стабільний часовий крок
+        const dt = Math.min((timestamp - this.lastTime) / 1000, 0.02);
+        this.lastTime = timestamp;
+
         const ctx = this.ctx;
         ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         for (let p of this.particles) {
+
             if (!this.isPaused) {
-                p.x += p.vx;
-                p.y += p.vy;
 
-                // Brownian motion
-                p.vx += (Math.random() - 0.5) * 0.1;
-                p.vy += (Math.random() - 0.5) * 0.1;
+                // === Langevin dynamics ===
 
-                // Стінки
-                if (p.x < 0 || p.x > this.canvas.width) p.vx *= -1;
-                if (p.y < 0 || p.y > this.canvas.height) p.vy *= -1;
+                // тертя
+                const ax = -this.gamma * p.vx / this.mass;
+                const ay = -this.gamma * p.vy / this.mass;
+
+                // шум
+                const noiseAmplitude = Math.sqrt(
+                    2 * this.gamma * this.k * this.temperature / this.mass
+                );
+
+                const randomX = noiseAmplitude * Math.sqrt(dt) * (Math.random() - 0.5);
+                const randomY = noiseAmplitude * Math.sqrt(dt) * (Math.random() - 0.5);
+
+                // оновлення швидкості
+                p.vx += ax * dt + randomX;
+                p.vy += ay * dt + randomY;
+
+                // оновлення координат (з масштабуванням)
+                p.x += p.vx * dt * this.visualScale;
+                p.y += p.vy * dt * this.visualScale;
+
+                // === відбиття від стін ===
+                if (p.x < p.radius) {
+                    p.x = p.radius;
+                    p.vx *= -1;
+                }
+                if (p.x > this.canvas.width - p.radius) {
+                    p.x = this.canvas.width - p.radius;
+                    p.vx *= -1;
+                }
+                if (p.y < p.radius) {
+                    p.y = p.radius;
+                    p.vy *= -1;
+                }
+                if (p.y > this.canvas.height - p.radius) {
+                    p.y = this.canvas.height - p.radius;
+                    p.vy *= -1;
+                }
             }
 
-            // Малюємо завжди
+            // малювання
             ctx.fillStyle = p.color;
             ctx.beginPath();
             ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);

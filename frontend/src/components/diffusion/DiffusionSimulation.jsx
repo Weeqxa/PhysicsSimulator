@@ -1,5 +1,5 @@
 // src/components/diffusion/DiffusionSimulation.jsx
-import { useEffect, useRef, useState } from "react";
+import {useEffect, useRef, useState} from "react";
 import Diffusion from "./Diffusion";
 import styles from "../../styles/Diffusion.module.css";
 
@@ -21,7 +21,7 @@ export default function DiffusionSimulation() {
     }, []);
 
     useEffect(() => {
-        simulationRef.current?.updateParameters({ particleCount, radius, mass, temperature });
+        simulationRef.current?.updateParameters({particleCount, radius, mass, temperature});
     }, [particleCount, radius, mass, temperature]);
 
     const handleReset = () => simulationRef.current?.resetParticles();
@@ -41,12 +41,16 @@ export default function DiffusionSimulation() {
                 <div className={styles.infoText}>
                     <p>
                         Interaktívna simulácia <strong>difúzie</strong>!<br/>
-                        Pozorujte pohyb častíc a Brownov pohyb.<br/><br/>
+                        Pozorujte pohyb častíc ovplyvnený <strong>Brownovým pohybom</strong>.<br/><br/>
                         <strong>Particle Count</strong> — počet častíc v simulácii.<br/>
-                        <strong>Mass</strong> — ovplyvňuje rýchlosť pohybu (väčšia hmotnosť = pomalší pohyb).<br/>
+                        <strong>Mass</strong> — ovplyvňuje inerciu častíc; väčšia hmotnosť znamená, že častice reagujú
+                        pomalšie na náhodné impulzy a ich pohyb je hladší.<br/>
                         <strong>Radius (pm)</strong> — veľkosť častíc.<br/>
-                        <strong>Temperature (K)</strong> — ovplyvňuje počiatočnú rýchlosť častíc.<br/><br/>
-                        Experimentujte s parametrami a sledujte okamžitú zmenu.
+                        <strong>Temperature (K)</strong> — určuje intenzitu náhodných impulzov od prostredia; vyššia
+                        teplota znamená dynamickejší a chaotickejší pohyb.<br/><br/>
+                        Simulácia zohľadňuje <strong>tercie, Brownov pohyb a odrazy od stien</strong>.
+                        Vzájomné strety medzi časticami nie sú modelované, pretože pre demonštráciu priemernej difúzie
+                        nie sú kritické.
                     </p>
                 </div>
 
