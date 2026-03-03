@@ -78,6 +78,13 @@ public class AuthController {
         }
 
         // -------------------------
+        // Перевірка чи існує користувач з таким email
+        // -------------------------
+        if (userService.findByEmail(user.getEmail()).isPresent()) {
+            return ResponseEntity.badRequest().body("Email already registered");
+        }
+
+        // -------------------------
         // Збереження користувача в базі
         // -------------------------
         // Тут можна додати passwordEncoder.encode(user.getPassword()), якщо ще не закодовано

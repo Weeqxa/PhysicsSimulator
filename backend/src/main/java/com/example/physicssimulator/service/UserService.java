@@ -43,4 +43,11 @@ public class UserService {
         // Повертаємо Optional, щоб показати, що користувача може не бути
         return userRepository.findByUsername(username);
     }
+
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+
+
 }
