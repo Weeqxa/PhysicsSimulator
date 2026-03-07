@@ -5,6 +5,7 @@ import styles from "../styles/Home.module.css";
 import pendulumImg from "../assets/images/pendulum.jpg";
 import diffusionImg from "../assets/images/diffusion.jpg";
 import springImg from "../assets/images/spring.jpg";
+import magnetImg from "../assets/images/magnet.jpg";
 
 export default function Home() {
     const [isAuthenticated, setIsAuthenticated] = useState(
@@ -102,7 +103,7 @@ export default function Home() {
                             {
                                 path: "/magnet",
                                 title: "Magnetické pole",
-                                image: "/images/magnet.jpg"
+                                image: magnetImg
                             },
                             {
                                 path: "/spring",
