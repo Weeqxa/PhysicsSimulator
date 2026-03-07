@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import PendulumPage from "./pages/PendulumPage";
 import DiffusionPage from "./pages/DiffusionPage";
 import SpringPage from "./pages/SpringPage";
+import MagnetPage from "./pages/MagnetPage";
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                 <Route path="/pendulum" element={<PendulumPage />} />
                 <Route path="/diffusion" element={<DiffusionPage />} />
                 <Route path="/spring" element={<SpringPage />} />
+                <Route path="/magnet" element={<MagnetPage />} />
             </Routes>
         </Router>
     );
