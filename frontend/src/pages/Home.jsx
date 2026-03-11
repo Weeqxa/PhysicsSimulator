@@ -13,6 +13,7 @@ export default function Home() {
     );
     const [isDesktop, setIsDesktop] = useState(window.innerWidth > 480);
 
+
     useEffect(() => {
         const handleResize = () => setIsDesktop(window.innerWidth > 480);
         window.addEventListener("resize", handleResize);
