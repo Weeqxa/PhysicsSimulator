@@ -13,7 +13,6 @@ export default function DiffusionPage() {
                 </div>
             </div>
 
-
             <div className={styles.simulationContainer}>
                 <DiffusionSimulation />
             </div>
