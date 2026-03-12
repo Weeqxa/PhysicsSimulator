@@ -53,7 +53,7 @@ export default function SpringSimulation() {
                         Sledujte pohyb závažia ovplyvnený silou pružiny a gravitáciou.<br/><br/>
 
                         <strong>Mass</strong> — hmotnosť závažia; väčšia hmotnosť znamená, že závažia reagujú pomalšie.<br/>
-                        <strong>K</strong> — tuhosť pružiny; vyššia hodnota = pružina tvrdšia a kmitanie rýchlejšie.<br/>
+                        <strong>k</strong> — tuhosť pružiny; vyššia hodnota = pružina tvrdšia a kmitanie rýchlejšie.<br/>
                         <strong>Damping</strong> — koeficient tlmenia; väčšie tlmenie = kmitanie sa rýchlejšie zastaví.<br/>
                         <strong>Nonlinear</strong> — zapnutie nelineárneho efektu (kx³) pre zložitejšie kmitanie.<br/><br/>
 
