@@ -49,9 +49,9 @@ export default function PendulumSimulation() {
                         Vitajte v interaktívnej simulácii <strong>kyvadla</strong>!<br/>
                         Kyvadlo kmitá pod vplyvom gravitačnej sily a ukazuje jednoduché harmonické kmity.<br/><br/>
 
-                        <strong>Length</strong> — dĺžka ramena. Určuje, ako rýchlo sa kyvadlo pohybuje: dlhšie rameno = pomalšie kmity.<br/>
-                        <strong>Gravity</strong> — zrýchlenie voľného pádu. Zvýšenie gravitácie zrýchľuje pohyb kyvadla.<br/>
-                        <strong>Damping</strong> — koeficient tlmenia. Ovláda stratu energie: väčšie tlmenie = kyvadlo sa rýchlejšie zastaví.<br/><br/>
+                        <strong>Dĺžka</strong> — dĺžka ramena. Určuje, ako rýchlo sa kyvadlo pohybuje: dlhšie rameno = pomalšie kmity.<br/>
+                        <strong>Gravitácia</strong> — zrýchlenie voľného pádu. Zvýšenie gravitácie zrýchľuje pohyb kyvadla.<br/>
+                        <strong>Tlmenie</strong> — koeficient tlmenia. Ovláda stratu energie: väčšie tlmenie = kyvadlo sa rýchlejšie zastaví.<br/><br/>
 
                         Experimentujte s týmito parametrami, sledujte pohyb a pochopte, ako fyzikálne vlastnosti ovplyvňujú správanie kyvadla.
                     </p>
@@ -60,7 +60,7 @@ export default function PendulumSimulation() {
                 {/* Панель керування */}
                 <div className={styles.controls}>
                     <div className={styles.row}>
-                        <label>Length: {length}</label>
+                        <label>Dĺžka: {length}</label>
                         <input
                             type="range"
                             min="50"
@@ -71,7 +71,7 @@ export default function PendulumSimulation() {
                     </div>
 
                     <div className={styles.row}>
-                        <label>Gravity: {gravity}</label>
+                        <label>Gravitácia: {gravity}</label>
                         <input
                             type="range"
                             min="0.1"
@@ -83,7 +83,7 @@ export default function PendulumSimulation() {
                     </div>
 
                     <div className={styles.row}>
-                        <label>Damping: {damping.toFixed(3)}</label>
+                        <label>Tlmenie: {damping.toFixed(3)}</label>
                         <input
                             type="range"
                             min="0"
@@ -96,13 +96,13 @@ export default function PendulumSimulation() {
 
                     <div className={styles.buttons}>
                         <button className="btn" onClick={handlePause}>
-                            Pause
+                            Pozastaviť
                         </button>
                         <button className="btn" onClick={handleResume}>
-                            Resume
+                            Pokračovať
                         </button>
                         <button className="btn" onClick={handleReset}>
-                            Reset
+                            Resetovať
                         </button>
                     </div>
                 </div>
