@@ -7,9 +7,9 @@ export default function PendulumPage() {
         <div>
             {/* ========================= ВЕРХНЯ ПАНЕЛЬ ========================= */}
             <div className="top-bar">
-                <div className="logo">Physical Simulations</div>
+                <div className="logo">Fyzikálne simulácie</div>
                 <div className="top-right-buttons">
-                    <a href="/" className="btn">Home</a>
+                    <a href="/" className="btn">Domov</a>
                 </div>
             </div>
 

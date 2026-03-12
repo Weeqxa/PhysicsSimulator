@@ -26,35 +26,35 @@ export default function Login() {
         <div>
             {/* ========================= ВЕРХНЯ ПАНЕЛЬ ========================= */}
             <div className="top-bar">
-                <div className="logo">Physical Simulations</div>
+                <div className="logo">Fyzikálne simulácie</div>
                 <div className={styles["top-right-buttons"]}>
-                    <a href="/" className="btn">Home</a>
+                    <a href="/" className="btn">Domov</a>
                 </div>
             </div>
 
             {/* ========================= КОНТЕЙНЕР ФОРМИ ========================= */}
             <div className={styles["auth-container"]}>
-                <h2>Login</h2>
+                <h2>Prihlásenie</h2>
                 <form onSubmit={handleSubmit}>
                     <input
                         type="text"
-                        placeholder="Username"
+                        placeholder="Používateľské meno"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
                     />
                     <input
                         type="password"
-                        placeholder="Password"
+                        placeholder="Heslo"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
-                    <button type="submit" className="btn form-btn">Login</button>
+                    <button type="submit" className="btn form-btn">Prihlásiť sa</button>
                 </form>
 
                 <div className={styles["form-footer"]}>
-                    Don’t have an account? <a href="/register">Register</a>
+                    Nemáte účet? <a href="/register">Zaregistrujte sa</a>
                 </div>
 
                 {message && <p className={styles.message}>{message}</p>}
