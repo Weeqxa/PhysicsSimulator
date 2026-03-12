@@ -1,5 +1,5 @@
 /* =========================
-   Стилі для симуляції плавучості
+   Стилі для симуляції плавучості - сучасний дизайн вибору
 ========================= */
 
 .simulationContainer {
@@ -8,7 +8,6 @@
     align-items: center;
     gap: 40px;
     padding: 20px;
-    box-sizing: border-box;
     flex-direction: row;
     height: calc(100vh - 70px);
     overflow: hidden;
@@ -32,13 +31,15 @@
 }
 
 .controlsColumn {
-    flex: 0 0 700px;
+    flex: 0 0 600px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
     gap: 40px;
     margin-left: 60px;
+    height: 100%; /* колонка займає всю висоту */
+    box-sizing: border-box;
 }
 
 .infoText {
@@ -47,8 +48,95 @@
     font-size: 18px;
     line-height: 1.7;
     max-width: 100%;
-    display: inline-block;
-    animation: floatReverse 6s ease-in-out infinite alternate;
+    display: block;
+    overflow-y: auto;       /* вертикальна прокрутка */
+    max-height: 350px;      /* обмежуємо висоту */
+    padding-right: 10px;
+    box-sizing: border-box;
+
+    /* сучасна прокрутка */
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-accent) rgba(0,0,0,0.1);
+}
+
+.infoText::-webkit-scrollbar {
+    width: 8px;
+}
+
+.infoText::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.05);
+    border-radius: 4px;
+}
+
+.infoText::-webkit-scrollbar-thumb {
+    background-color: var(--color-accent);
+    border-radius: 4px;
+    border: 2px solid rgba(0,0,0,0.05);
+}
+
+/* =========================
+   Карти вибору предметів і рідин
+========================= */
+
+.cardGroup p {
+    margin: 0 0 20px 0;
+    font-weight: 600;
+    color: var(--color-text-main);
+    font-size: 16px;
+}
+
+.cardContainer {
+    display: flex;
+    gap: 0;                     /* видаляємо старий gap */
+    flex-wrap: nowrap;           /* щоб всі картки в одному ряду */
+    width: 100%;
+    justify-content: space-between; /* рівномірні проміжки між картками */
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 90px;                 /* фіксована ширина картки */
+    height: 90px;
+    border-radius: 12px;
+    background: var(--color-bg-panel);
+    box-shadow: var(--shadow-panel);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    font-weight: 500;
+    color: var(--color-text-main);
+}
+
+.card img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-bottom: 5px;
+    border-radius: 6px;
+}
+
+/* Hover ефект як у кнопок з neon */
+.card:hover {
+    background: #0d0d0d;
+    color: var(--color-accent);
+    box-shadow: var(--shadow-neon);
+    transform: translateY(-3px) scale(1.05);
+}
+
+/* Вибрана картка — тепер без пульсації, просто легка підсвітка */
+.card.selected {
+    background: #0d0d0d;
+    color: var(--color-accent);
+    box-shadow: 0 0 15px var(--color-accent), 0 0 24px rgba(0,0,0,0.1); /* легка підсвітка */
+    animation: none; /* прибираємо мерехтіння */
+}
+
+@keyframes pulse {
+    0%, 100% { box-shadow: 0 0 8px var(--color-accent), 0 0 16px var(--color-accent), 0 0 24px var(--color-accent); }
+    50% { box-shadow: 0 0 12px var(--color-accent), 0 0 24px var(--color-accent), 0 0 36px var(--color-accent); }
 }
 
 @keyframes floatReverse {
@@ -67,40 +155,37 @@
     animation: pulse 2s infinite;
 }
 
-@keyframes pulse {
-    0%, 100% { text-shadow: 0 0 1px var(--color-accent), 0 0 2px var(--color-accent);}
-    50% { text-shadow: 0 0 2px var(--color-accent), 0 0 4px var(--color-accent);}
-}
-
+/* =========================
+   Контролери (слайдери)
+========================= */
 .controls {
     background: var(--color-bg-main);
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 4px 12px var(--shadow-panel);
+    box-shadow: var(--shadow-panel);
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 30px;
     color: var(--color-text-main);
+}
+
+.controls > * {
+    width: 100%; /* всі внутрішні елементи займають всю ширину */
 }
 
 .row {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
 
 label { flex: 1; }
-input[type=range] { flex: 2; accent-color: var(--color-accent); }
-
-.buttons {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-}
+input[type=range] { flex: 2; accent-color: var(--color-accent); width: 100%; }
 
 /* =========================
-   Адаптивність для планшетів і мобільних
+   Адаптивність
 ========================= */
 @media (max-width: 900px) {
     .simulationContainer {
@@ -112,7 +197,7 @@ input[type=range] { flex: 2; accent-color: var(--color-accent); }
     }
 
     .controlsColumn {
-        width: 100%;
+        width: 90%;
         align-items: center;
     }
 
@@ -126,8 +211,7 @@ input[type=range] { flex: 2; accent-color: var(--color-accent); }
     }
 
     .controls {
-        width: 90%;
-        max-width: none;
+        width: 100%;
         padding: 20px;
         gap: 25px;
     }
