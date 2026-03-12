@@ -112,9 +112,9 @@ export default function Home() {
                                 image: springImg
                             },
                             {
-                                path: "/vztlak",
+                                path: "/buoyancy",
                                 title: "Vztlak",
-                                image: "/images/vztlak.jpg"
+                                image: "/images/buoyancy.jpg"
                             }
                         ].map((sim) => (
                             <Link key={sim.path} to={sim.path} className={styles["sim-card"]}>
