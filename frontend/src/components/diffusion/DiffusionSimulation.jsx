@@ -42,11 +42,11 @@ export default function DiffusionSimulation() {
                     <p>
                         Interaktívna simulácia <strong>difúzie</strong>!<br/>
                         Pozorujte pohyb častíc ovplyvnený <strong>Brownovým pohybom</strong>.<br/><br/>
-                        <strong>Particle Count</strong> — počet častíc v simulácii.<br/>
-                        <strong>Mass</strong> — ovplyvňuje inerciu častíc; väčšia hmotnosť znamená, že častice reagujú
+                        <strong>Počet častíc</strong> — počet častíc v simulácii.<br/>
+                        <strong>Hmotnosť</strong> — ovplyvňuje inerciu častíc; väčšia hmotnosť znamená, že častice reagujú
                         pomalšie na náhodné impulzy a ich pohyb je hladší.<br/>
-                        <strong>Radius (pm)</strong> — veľkosť častíc.<br/>
-                        <strong>Temperature (K)</strong> — určuje intenzitu náhodných impulzov od prostredia; vyššia
+                        <strong>Polomer (pm)</strong> — veľkosť častíc.<br/>
+                        <strong>Teplota (K)</strong> — určuje intenzitu náhodných impulzov od prostredia; vyššia
                         teplota znamená dynamickejší a chaotickejší pohyb.<br/><br/>
                         Simulácia zohľadňuje <strong>tercie, Brownov pohyb a odrazy od stien</strong>.
                         Vzájomné strety medzi časticami nie sú modelované, pretože pre demonštráciu priemernej difúzie
@@ -56,7 +56,7 @@ export default function DiffusionSimulation() {
 
                 <div className={styles.controls}>
                     <div className={styles.row}>
-                        <label>Particle Count: {particleCount}</label>
+                        <label>Počet častíc: {particleCount}</label>
                         <input
                             type="range"
                             min="50"
@@ -67,7 +67,7 @@ export default function DiffusionSimulation() {
                     </div>
 
                     <div className={styles.row}>
-                        <label>Radius: {radius}</label>
+                        <label>Polomer: {radius}</label>
                         <input
                             type="range"
                             min="1"
@@ -78,7 +78,7 @@ export default function DiffusionSimulation() {
                     </div>
 
                     <div className={styles.row}>
-                        <label>Mass: {mass}</label>
+                        <label>Hmotnosť: {mass}</label>
                         <input
                             type="range"
                             min="0.1"
@@ -90,7 +90,7 @@ export default function DiffusionSimulation() {
                     </div>
 
                     <div className={styles.row}>
-                        <label>Temperature: {temperature}</label>
+                        <label>Teplota: {temperature}</label>
                         <input
                             type="range"
                             min="0.5"
@@ -102,9 +102,9 @@ export default function DiffusionSimulation() {
                     </div>
 
                     <div className={styles.buttons}>
-                        <button className="btn" onClick={() => simulationRef.current?.pause()}>Pause</button>
-                        <button className="btn" onClick={() => simulationRef.current?.resume()}>Resume</button>
-                        <button className="btn" onClick={handleReset}>Reset</button>
+                        <button className="btn" onClick={() => simulationRef.current?.pause()}>Pozastaviť</button>
+                        <button className="btn" onClick={() => simulationRef.current?.resume()}>Pokračovať</button>
+                        <button className="btn" onClick={handleReset}>Resetovať</button>
                     </div>
                 </div>
             </div>

@@ -32,26 +32,26 @@ export default function Register() {
         <div>
             {/* ========================= ВЕРХНЯ ПАНЕЛЬ ========================= */}
             <div className="top-bar">
-                <div className="logo">Physical Simulations</div>
+                <div className="logo">Fyzikálne simulácie</div>
                 <div className={styles["top-right-buttons"]}>
-                    <a href="/" className="btn">Home</a>
+                    <a href="/" className="btn">Domov</a>
                 </div>
             </div>
 
             {/* ========================= КОНТЕЙНЕР ФОРМИ ========================= */}
             <div className={styles["auth-container"]}>
-                <h2>Register</h2>
+                <h2>Registrácia</h2>
                 <form onSubmit={handleSubmit}>
                     <input
                         type="text"
-                        placeholder="Username"
+                        placeholder="Používateľské meno"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
                     />
                     <input
                         type="text"
-                        placeholder="Full Name"
+                        placeholder="Celé meno"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         required
@@ -65,16 +65,16 @@ export default function Register() {
                     />
                     <input
                         type="password"
-                        placeholder="Password"
+                        placeholder="Heslo"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
-                    <button type="submit" className="btn form-btn">Register</button>
+                    <button type="submit" className="btn form-btn">Registrovať sa</button>
                 </form>
 
                 <div className={styles["form-footer"]}>
-                    Already have an account? <a href="/login">Login</a>
+                    Už máte účet? <a href="/login">Prihláste sa</a>
                 </div>
 
                 {message && <p className={styles.message}>{message}</p>}
