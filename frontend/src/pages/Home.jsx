@@ -6,6 +6,7 @@ import pendulumImg from "../assets/images/pendulum.jpg";
 import diffusionImg from "../assets/images/diffusion.jpg";
 import springImg from "../assets/images/spring.jpg";
 import magnetImg from "../assets/images/magnet.jpg";
+import buoyancyImg from "../assets/images/buoyancy.jpg";
 
 export default function Home() {
     const [isAuthenticated, setIsAuthenticated] = useState(
@@ -114,7 +115,7 @@ export default function Home() {
                             {
                                 path: "/buoyancy",
                                 title: "Vztlak",
-                                image: "/images/buoyancy.jpg"
+                                image: buoyancyImg
                             }
                         ].map((sim) => (
                             <Link key={sim.path} to={sim.path} className={styles["sim-card"]}>
