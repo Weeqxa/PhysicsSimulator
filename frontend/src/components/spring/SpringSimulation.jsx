@@ -52,10 +52,10 @@ export default function SpringSimulation() {
                         Vitajte v interaktívnej simulácii <strong>pružiny</strong>!<br/>
                         Sledujte pohyb závažia ovplyvnený silou pružiny a gravitáciou.<br/><br/>
 
-                        <strong>Mass</strong> — hmotnosť závažia; väčšia hmotnosť znamená, že závažia reagujú pomalšie.<br/>
+                        <strong>Hmotnosť</strong> — hmotnosť závažia; väčšia hmotnosť znamená, že závažia reagujú pomalšie.<br/>
                         <strong>k</strong> — tuhosť pružiny; vyššia hodnota = pružina tvrdšia a kmitanie rýchlejšie.<br/>
-                        <strong>Damping</strong> — koeficient tlmenia; väčšie tlmenie = kmitanie sa rýchlejšie zastaví.<br/>
-                        <strong>Nonlinear</strong> — zapnutie nelineárneho efektu (kx³) pre zložitejšie kmitanie.<br/><br/>
+                        <strong>Tlmenie</strong> — koeficient tlmenia; väčšie tlmenie = kmitanie sa rýchlejšie zastaví.<br/>
+                        <strong>Nelineárne</strong> — zapnutie nelineárneho efektu (kx³) pre zložitejšie kmitanie.<br/><br/>
 
                         Pomocou posúvačov môžete meniť parametre a myšou ťahať závažia priamo v animácii.
                     </p>
@@ -63,7 +63,7 @@ export default function SpringSimulation() {
 
                 <div className={styles.controls}>
                     <div className={styles.row}>
-                        <label>Mass: {mass}</label>
+                        <label>Hmotnosť: {mass}</label>
                         <input type="range" min="0.5" max="5" step="0.1" value={mass}
                                onChange={e => setMass(Number(e.target.value))}/>
                     </div>
@@ -75,14 +75,14 @@ export default function SpringSimulation() {
                     </div>
 
                     <div className={styles.row}>
-                        <label>Damping: {c}</label>
+                        <label>Tlmenie: {c}</label>
                         <input type="range" min="0" max="2" step="0.05" value={c}
                                onChange={e => setC(Number(e.target.value))}/>
                     </div>
 
                     <div className={styles.row}>
                         <label>
-                            Nonlinear (kx³)
+                            Nelineárne (kx³)
                             <span className={styles.switch}>
                                 <input type="checkbox" checked={nonlinear}
                                        onChange={e => setNonlinear(e.target.checked)}/>
@@ -92,9 +92,9 @@ export default function SpringSimulation() {
                     </div>
 
                     <div className={styles.buttons}>
-                        <button className="btn" onClick={handlePause}>Pause</button>
-                        <button className="btn" onClick={handleResume}>Resume</button>
-                        <button className="btn" onClick={handleReset}>Reset</button>
+                        <button className="btn" onClick={handlePause}>Pozastaviť</button>
+                        <button className="btn" onClick={handleResume}>Pokračovať</button>
+                        <button className="btn" onClick={handleReset}>Resetovať</button>
                     </div>
                 </div>
             </div>
