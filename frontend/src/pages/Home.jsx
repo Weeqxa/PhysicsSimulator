@@ -41,12 +41,12 @@ export default function Home() {
         <div className="wrapper">
             {/* ========================= ВЕРХНЯ ПАНЕЛЬ ========================= */}
             <header className="top-bar">
-                <div className="logo">Physical Simulations</div>
+                <div className="logo">Fyzikálne simulácie</div>
                 <div className={styles["home-auth-buttons"]}>
                     {!isAuthenticated ? (
                         <>
-                            <Link to="/login" className="btn">Login</Link>
-                            <Link to="/register" className="btn">Register</Link>
+                            <Link to="/login" className="btn">Prihlásiť sa</Link>
+                            <Link to="/register" className="btn">Registrovať sa</Link>
                         </>
                     ) : (
                         <>
@@ -57,7 +57,7 @@ export default function Home() {
                                     <path d="M6 20c0-4 3-6 6-6s6 2 6 6"/>
                                 </svg>
                             </Link>
-                            <button onClick={handleLogout} className="btn">Logout</button>
+                            <button onClick={handleLogout} className="btn">Odhlásiť sa</button>
                         </>
                     )}
                 </div>
@@ -132,7 +132,7 @@ export default function Home() {
             </div>
 
             {/* ========================= ФУТЕР ========================= */}
-            <footer>BP Project – Physical Simulations</footer>
+            <footer>BP Projekt – Fyzikálne simulácie</footer>
         </div>
     );
 }
