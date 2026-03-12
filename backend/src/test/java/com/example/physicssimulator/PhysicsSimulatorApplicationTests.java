@@ -1,4 +1,4 @@
-package com.example.physicssimulator;
+package java.com.example.physicssimulator;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
