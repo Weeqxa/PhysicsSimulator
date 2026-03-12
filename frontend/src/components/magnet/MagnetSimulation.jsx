@@ -57,9 +57,9 @@ export default function MagnetSimulation() {
 
                         Presúvajte magnet myšou a sledujte, ako sa mení orientácia kompasov.<br/><br/>
 
-                        <strong>Field Strength</strong> — určuje intenzitu magnetického poľa; väčšia hodnota znamená silnejší vplyv na kompas.<br/>
-                        <strong>Damping</strong> — určuje, ako rýchlo kompas zastavuje svoje otáčanie; vyššia hodnota spôsobuje plynulejšie, pomalšie otáčanie.<br/>
-                        <strong>Inertia</strong> — ovplyvňuje zotrvačnosť kompasovej ihly; vyššia hodnota znamená, že ihla reaguje pomalšie na zmenu poľa.<br/><br/>
+                        <strong>Sila poľa</strong> — určuje intenzitu magnetického poľa; väčšia hodnota znamená silnejší vplyv na kompas.<br/>
+                        <strong>Tlmenie</strong> — určuje, ako rýchlo kompas zastavuje svoje otáčanie; vyššia hodnota spôsobuje plynulejšie, pomalšie otáčanie.<br/>
+                        <strong>Zotrvačnosť</strong> — ovplyvňuje zotrvačnosť kompasovej ihly; vyššia hodnota znamená, že ihla reaguje pomalšie na zmenu poľa.<br/><br/>
 
                         Kompasy sa vždy orientujú podľa smeru magnetického poľa a interaktívne vizualizujú jeho silové línie.
                     </p>
@@ -68,7 +68,7 @@ export default function MagnetSimulation() {
                 <div className={styles.controls}>
 
                     <div className={styles.row}>
-                        <label>Field strength: {fieldStrength}</label>
+                        <label>Sila poľa: {fieldStrength}</label>
 
                         <input
                             type="range"
@@ -81,7 +81,7 @@ export default function MagnetSimulation() {
                     </div>
 
                     <div className={styles.row}>
-                        <label>Damping: {damping.toFixed(2)}</label>
+                        <label>Tlmenie: {damping.toFixed(2)}</label>
 
                         <input
                             type="range"
@@ -94,7 +94,7 @@ export default function MagnetSimulation() {
                     </div>
 
                     <div className={styles.row}>
-                        <label>Inertia: {inertia.toFixed(2)}</label>
+                        <label>Zotrvačnosť: {inertia.toFixed(2)}</label>
 
                         <input
                             type="range"
