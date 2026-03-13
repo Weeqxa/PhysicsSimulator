@@ -1,35 +1,30 @@
 package com.example.physicssimulator.config;
 
-import org.jspecify.annotations.NonNull;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-// =========================
-// Конфігурація веб-шару Spring
-// =========================
-@Configuration // Позначає клас як конфігураційний для Spring
-public class WebConfig {
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
-    // =========================
-    // Bean для налаштування CORS
-    // =========================
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        // Повертаємо анонімний клас, який реалізує WebMvcConfigurer
-        return new WebMvcConfigurer() {
+@Configuration
+public class WebConfig implements WebMvcConfigurer {
 
-            // Метод для налаштування CORS (Cross-Origin Resource Sharing)
-            @Override
-            public void addCorsMappings(@NonNull CorsRegistry registry) {
-                // -------------------------
-                // Дозволяємо запити до будь-яких endpoint-ів, що починаються з /api/
-                // лише з фронтенду, який працює на http://localhost:5173
-                // -------------------------
-                registry.addMapping("/api/**")
-                        .allowedOrigins("http://localhost:5173");
-            }
-        };
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        Path uploadDir = Paths.get("uploads");
+        String uploadPath = uploadDir.toFile().getAbsolutePath();
+
+        registry.addResourceHandler("/uploads/**")
+                .addResourceLocations("file:" + uploadPath + "/");
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:5173")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("*");
     }
 }
