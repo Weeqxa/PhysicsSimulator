@@ -1,68 +1,40 @@
-const API_URL = "http://localhost:8080/api/auth"; // Базовий URL мого Spring Boot API
+const AUTH_API_URL = "http://localhost:8080/api/auth";
+const USERS_API_URL = "http://localhost:8080/api/users";
+const BACKEND_URL = "http://localhost:8080";
 
-// =========================
-// Функція для реєстрації користувача
-// =========================
 export async function registerUser(userData) {
-    try {
-        // Виконуємо POST-запит на бекенд
-        const response = await fetch(`${API_URL}/register`, {
-            method: "POST", // HTTP метод
-            headers: {
-                "Content-Type": "application/json", // Вказуємо, що надсилаємо JSON
-            },
-            body: JSON.stringify(userData), // Перетворюємо об'єкт користувача у JSON
-        });
+    const response = await fetch(`${AUTH_API_URL}/register`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+    });
 
-        // Якщо сервер повернув код помилки (наприклад, 400)
-        if (!response.ok) {
-            const errorMessage = await response.text(); // отримуємо текст помилки з відповіді
-            throw new Error(errorMessage); // Генеруємо виключення для catch
-        }
-
-        // Якщо все успішно, повертаємо текст відповіді (наприклад "User registered successfully.")
-        return await response.text();
-    } catch (error) {
-        // Перехоплюємо помилки (наприклад, сервер недоступний) і передаємо їх далі
-        throw error;
+    if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(errorMessage);
     }
+
+    return await response.text();
 }
 
-// =========================
-// Функція для логіну користувача
-// =========================
 export async function loginUser(credentials) {
-    try {
-        const response = await fetch(`${API_URL}/login`, {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(credentials),
-        });
+    const response = await fetch(`${AUTH_API_URL}/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(credentials),
+    });
 
-        if (!response.ok) {
-            const errorMessage = await response.text();
-            throw new Error(errorMessage);
-        }
-
-        const token = await response.text();
-        localStorage.setItem("token", token);
-
-        return token;
-
-    } catch (error) {
-        throw error;
+    if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(errorMessage);
     }
-}
 
+    const token = await response.text();
+    localStorage.setItem("token", token);
 
-
-
-
-
-
-
-export function logoutUser() {
-    localStorage.removeItem("token");
+    return token;
 }
 
 export async function authFetch(url, options = {}) {
@@ -71,11 +43,72 @@ export async function authFetch(url, options = {}) {
     const headers = {
         ...options.headers,
         Authorization: token ? `Bearer ${token}` : "",
-        "Content-Type": "application/json"
     };
 
     return fetch(url, {
         ...options,
-        headers
+        headers,
     });
+}
+
+export async function getProfile() {
+    const response = await authFetch(`${USERS_API_URL}/me`);
+
+    if (!response.ok) {
+        const error = await response.text();
+        throw new Error(error);
+    }
+
+    return response.json();
+}
+
+export async function updateProfile(profileData) {
+    const response = await authFetch(`${USERS_API_URL}/me`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(profileData),
+    });
+
+    if (!response.ok) {
+        const error = await response.text();
+        throw new Error(error);
+    }
+
+    return response.json();
+}
+
+export async function uploadAvatar(file) {
+    const token = localStorage.getItem("token");
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const res = await fetch(`${USERS_API_URL}/avatar`, {
+        method: "POST",
+        headers: {
+            Authorization: token ? `Bearer ${token}` : "",
+        },
+        body: formData,
+    });
+
+    if (!res.ok) {
+        const text = await res.text();
+        throw new Error(text || "Failed to upload avatar");
+    }
+
+    return await res.text();
+}
+
+export function getAvatarUrl(avatarPath) {
+    if (!avatarPath) return null;
+    if (avatarPath.startsWith("http://") || avatarPath.startsWith("https://")) {
+        return avatarPath;
+    }
+    return `${BACKEND_URL}${avatarPath}`;
+}
+
+export function logoutUser() {
+    localStorage.removeItem("token");
 }
