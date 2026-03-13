@@ -4,31 +4,34 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
 @Entity
 @Table(name = "users")
+@Getter
+@Setter
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Setter
+    @Column(name = "username", nullable = false)
     private String username;
-    @Setter
+
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Setter
+    @Column(name = "name")
     private String name;
-    @Setter
+
+    @Column(name = "email")
     private String email;
 
-    public User() {
-    }
+    @Column(name = "avatar_url")  // <-- обов'язково тут
+    private String avatarUrl;
 
-    public User(String username, String password, String name, String email) {
-        this.username = username;
-        this.password = password;
-        this.name = name;
-        this.email = email;
-    }
+    @Column(name = "bio", length = 500)
+    private String bio;
+
+    public User() {}
+
 }
