@@ -53,15 +53,15 @@ export default function MagnetSimulation() {
 
                 <div className={styles.infoText}>
                     <p>
-                        Interaktívna simulácia <strong>magnetického poľa</strong>.<br/><br/>
+                        <strong>Magnetické pole</strong><br/>
+                        Magnetické pole je fyzikálne pole, ktoré vzniká v okolí magnetov alebo elektrických prúdov
+                        a pôsobí na pohybujúce sa elektrické náboje a magnetické dipóly.<br/><br/>
 
-                        Presúvajte magnet myšou a sledujte, ako sa mení orientácia kompasov.<br/><br/>
+                        Jeho vlastnosti možno opísať pomocou magnetických indukčných čiar, ktoré určujú smer a intenzitu poľa.
+                        V každom bode priestoru má magnetické pole svoj smer a veľkosť, pričom jeho pôsobenie sa prejavuje napríklad orientáciou magnetickej ihly.<br/><br/>
 
-                        <strong>Sila poľa</strong> — určuje intenzitu magnetického poľa; väčšia hodnota znamená silnejší vplyv na kompas.<br/>
-                        <strong>Tlmenie</strong> — určuje, ako rýchlo kompas zastavuje svoje otáčanie; vyššia hodnota spôsobuje plynulejšie, pomalšie otáčanie.<br/>
-                        <strong>Zotrvačnosť</strong> — ovplyvňuje zotrvačnosť kompasovej ihly; vyššia hodnota znamená, že ihla reaguje pomalšie na zmenu poľa.<br/><br/>
-
-                        Kompasy sa vždy orientujú podľa smeru magnetického poľa a interaktívne vizualizujú jeho silové línie.
+                        Simulácia znázorňuje priestorové rozloženie magnetického poľa v okolí magnetu
+                        a jeho vplyv na orientáciu kompasov, ktoré vizualizujú smer siločiar.
                     </p>
                 </div>
 

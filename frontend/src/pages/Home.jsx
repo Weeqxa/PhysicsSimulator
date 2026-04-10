@@ -68,16 +68,16 @@ export default function Home() {
             <div className="content">
                 {/* Вітальний текст */}
                 <div className={styles["intro-section"]}>
-                    <h1>Vitajte vo virtuálnej fyzikálnej laboratóriu!</h1>
+                    <h1>Vitajte vo virtuálnom fyzikálnom laboratóriu!</h1>
                     <p>
                         Preskúmajte{' '}
-                        <span className={styles.highlight}>mechaniku</span>,{' '}
-                        <span className={styles.highlight}>magnetizmus</span>,{' '}
-                        <span className={styles.highlight}>difúziu</span>,{' '}
-                        <span className={styles.highlight}>pružiny</span> a{' '}
-                        <span className={styles.highlight}>plávajúce telieska</span> prostredníctvom interaktívnych
+                        <span className={styles.highlight}>matematické kyvadlo</span>,{' '}
+                        <span className={styles.highlight}>jav difúzie</span>,{' '}
+                        <span className={styles.highlight}>magneticke pole v okoli magnetu</span>,{' '}
+                        <span className={styles.highlight}>kmitavý pohyb závažia na pružine</span> a{' '}
+                        <span className={styles.highlight}>prejavy vztlakovej sily</span> prostredníctvom interaktívnych
                         simulácií.<br/>
-                        Experimentujte s parametrami a sledujte okamžité výsledky – učte sa fyziku vizuálne a
+                        Meňte parametre a sledujte okamžité výsledky – učte sa fyziku vizuálne a
                         intuitívne!
                     </p>
                 </div>

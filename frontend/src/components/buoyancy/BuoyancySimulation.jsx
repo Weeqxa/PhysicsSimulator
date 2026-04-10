@@ -72,16 +72,19 @@ export default function BuoyancySimulation() {
             <div className={styles.controlsColumn}>
                 <div className={styles.infoText}>
                     <p>
-                        Interaktívna simulácia <strong>plávania a vztlaku</strong>!<br/>
-                        Pozorujte, ako rôzne predmety reagujú na <strong>vztlakovú silu</strong> vo vode alebo iných kvapalinách.<br/><br/>
-                        <strong>Predmet</strong> — vyberte objekt, ktorý chcete sledovať (napr. drevo, kameň, balón).<br/>
-                        <strong>Hustota predmetu</strong> — určuje, či predmet klesá alebo pláva; vyššia hustota znamená, že predmet je ťažší a klesá rýchlejšie.<br/>
-                        <strong>Hustota kvapaliny</strong> — vplýva na vztlak; hustejšia kvapalina poskytuje väčší vztlak a predmet ľahšie pláva.<br/>
-                        <strong>Veľkosť</strong> — určuje rozmery predmetu; väčší predmet má väčší objem a viac vztlaku.<br/>
-                        <strong>Farba a tvar predmetu</strong> — vizuálna reprezentácia objektu; môže byť kruh, drevo alebo kameň.<br/>
-                        <strong>Farba kvapaliny</strong> — vizuálna reprezentácia kvapaliny (voda, olej, ortuť, benzín).<br/><br/>
-                        Simulácia zohľadňuje <strong>gravitáciu, vztlakovú silu a odrazy od stien</strong>.<br/>
-                        Predmety môžu plávať, klesať alebo sa kývať podľa rozdielu hustoty medzi objektom a kvapalinou.
+                        <strong>Vztlaková sila a plávanie telies</strong><br/>
+                        Vztlaková sila je sila, ktorá pôsobí na teleso ponorené do kvapaliny smerom nahor
+                        a je spôsobená rozdielom tlaku v kvapaline.<br/><br/>
+
+                        Podľa Archimedovho zákona je veľkosť vztlakovej sily rovná tiaži kvapaliny,
+                        ktorú teleso vytlačí. Správanie telesa v kvapaline závisí najmä od pomeru jeho hustoty
+                        k hustote okolitého prostredia.<br/><br/>
+
+                        Teleso môže plávať, vznášať sa alebo klesať v závislosti od tohto pomeru,
+                        pričom rovnováha nastáva vtedy, keď sa vztlaková sila vyrovná tiažovej sile.<br/><br/>
+
+                        Simulácia znázorňuje interakciu medzi telesom a kvapalinou
+                        a umožňuje pozorovať základné princípy plávania a pôsobenia vztlaku.
                     </p>
                 </div>
 

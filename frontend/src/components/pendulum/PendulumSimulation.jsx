@@ -46,14 +46,16 @@ export default function PendulumSimulation() {
                 {/* Текстове пояснення зверху */}
                 <div className={styles.infoText}>
                     <p>
-                        Vitajte v interaktívnej simulácii <strong>kyvadla</strong>!<br/>
-                        Kyvadlo kmitá pod vplyvom gravitačnej sily a ukazuje jednoduché harmonické kmity.<br/><br/>
+                        <strong>Mechanické kyvadlo</strong><br/>
+                        Mechanické kyvadlo je fyzikálny systém tvorený hmotným bodom zaveseným na pevnom závese.
+                        Po vychýlení z rovnovážnej polohy vykonáva kmitavý pohyb vplyvom gravitačnej sily.<br/><br/>
 
-                        <strong>Dĺžka</strong> — dĺžka ramena. Určuje, ako rýchlo sa kyvadlo pohybuje: dlhšie rameno = pomalšie kmity.<br/>
-                        <strong>Gravitácia</strong> — zrýchlenie voľného pádu. Zvýšenie gravitácie zrýchľuje pohyb kyvadla.<br/>
-                        <strong>Tlmenie</strong> — koeficient tlmenia. Ovláda stratu energie: väčšie tlmenie = kyvadlo sa rýchlejšie zastaví.<br/><br/>
+                        Pri malých výchylkách možno tento pohyb aproximovať ako jednoduché harmonické kmity,
+                        ktoré predstavujú jeden zo základných modelov periodického pohybu v mechanike.
+                        Kyvadlo patrí medzi najjednoduchšie systémy na štúdium zákonitostí kmitania.<br/><br/>
 
-                        Experimentujte s týmito parametrami, sledujte pohyb a pochopte, ako fyzikálne vlastnosti ovplyvňujú správanie kyvadla.
+                        Simulácia znázorňuje priebeh pohybu kyvadla v závislosti od zvolených podmienok
+                        a umožňuje pozorovať základné vlastnosti mechanického kmitania.
                     </p>
                 </div>
 

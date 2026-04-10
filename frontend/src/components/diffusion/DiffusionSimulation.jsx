@@ -40,17 +40,16 @@ export default function DiffusionSimulation() {
             <div className={styles.controlsColumn}>
                 <div className={styles.infoText}>
                     <p>
-                        Interaktívna simulácia <strong>difúzie</strong>!<br/>
-                        Pozorujte pohyb častíc ovplyvnený <strong>Brownovým pohybom</strong>.<br/><br/>
-                        <strong>Počet častíc</strong> — počet častíc v simulácii.<br/>
-                        <strong>Hmotnosť</strong> — ovplyvňuje inerciu častíc; väčšia hmotnosť znamená, že častice reagujú
-                        pomalšie na náhodné impulzy a ich pohyb je hladší.<br/>
-                        <strong>Polomer (pm)</strong> — veľkosť častíc.<br/>
-                        <strong>Teplota (K)</strong> — určuje intenzitu náhodných impulzov od prostredia; vyššia
-                        teplota znamená dynamickejší a chaotickejší pohyb.<br/><br/>
-                        Simulácia zohľadňuje <strong>tercie, Brownov pohyb a odrazy od stien</strong>.
-                        Vzájomné strety medzi časticami nie sú modelované, pretože pre demonštráciu priemernej difúzie
-                        nie sú kritické.
+                        <strong>Difúzia</strong><br/>
+                        Difúzia je proces samovoľného premiešavania častíc v dôsledku ich neusporiadaného tepelného pohybu,
+                        ktorý vedie k postupnému vyrovnávaniu koncentrácie látky v priestore.<br/><br/>
+
+                        Pohyb častíc je úzko spätý s Brownovým pohybom, vznikajúcim vplyvom náhodných zrážok
+                        s molekulami prostredia. Na jeho opis sa často využívajú stochastické modely,
+                        napríklad Langevinov prístup, ktorý zohľadňuje pôsobenie náhodných síl a tlmenia.<br/><br/>
+
+                        Simulácia znázorňuje pohyb častíc a ich rozptyl v priestore v čase,
+                        čím umožňuje pozorovať základné vlastnosti difúzneho procesu.
                     </p>
                 </div>
 

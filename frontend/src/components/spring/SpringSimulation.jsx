@@ -49,15 +49,15 @@ export default function SpringSimulation() {
             <div className={styles.controlsColumn}>
                 <div className={styles.infoText}>
                     <p>
-                        Vitajte v interaktívnej simulácii <strong>pružiny</strong>!<br/>
-                        Sledujte pohyb závažia ovplyvnený silou pružiny a gravitáciou.<br/><br/>
+                        <strong>Kmitanie na pružine</strong><br/>
+                        Kmitanie na pružine predstavuje mechanický pohyb telesa viazaného pružným prvkom,
+                        pri ktorom pôsobí vratná sila smerujúca do rovnovážnej polohy.<br/><br/>
 
-                        <strong>Hmotnosť</strong> — hmotnosť závažia; väčšia hmotnosť znamená, že závažia reagujú pomalšie.<br/>
-                        <strong>k</strong> — tuhosť pružiny; vyššia hodnota = pružina tvrdšia a kmitanie rýchlejšie.<br/>
-                        <strong>Tlmenie</strong> — koeficient tlmenia; väčšie tlmenie = kmitanie sa rýchlejšie zastaví.<br/>
-                        <strong>Nelineárne</strong> — zapnutie nelineárneho efektu (kx³) pre zložitejšie kmitanie.<br/><br/>
+                        Tento pohyb je v ideálnom prípade opísaný Hookeovým zákonom, podľa ktorého je sila úmerná výchylke.
+                        Pri malých výchylkách ide o jednoduché harmonické kmity, zatiaľ čo pri väčších výchylkách sa môžu prejaviť aj nelineárne efekty.<br/><br/>
 
-                        Pomocou posúvačov môžete meniť parametre a myšou ťahať závažia priamo v animácii.
+                        Simulácia znázorňuje časový priebeh pohybu telesa na pružine
+                        a umožňuje pozorovať základné vlastnosti mechanického kmitania v rôznych podmienkach.
                     </p>
                 </div>
 
