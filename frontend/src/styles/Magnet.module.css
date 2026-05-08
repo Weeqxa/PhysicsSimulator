@@ -42,7 +42,7 @@
     justify-content: flex-start;
     align-items: flex-start;
     gap: 40px;
-
+    margin-right: 80px;
 }
 
 /* =========================
@@ -99,22 +99,14 @@
    Панель керування
 ========================= */
 .controls {
-
     background: var(--color-bg-main);
-
     padding: 30px;
-
     border-radius: 12px;
-
-    box-shadow: 0 4px 12px var(--shadow-panel);
-
+    box-shadow: var(--shadow-panel);
     width: 100%;
-
     display: flex;
     flex-direction: column;
-
     gap: 25px;
-
     color: var(--color-text-main);
 }
 

@@ -1,8 +1,9 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../services/api";
 import "../styles/Common.css";       // глобальні змінні та базові стилі
-import styles from "../styles/Auth.module.css"; // специфічні стилі авторизації
+import styles from "../styles/Auth.module.css";
+import {useTheme} from "../context/ThemeContext.jsx"; // специфічні стилі авторизації
 
 export default function Login() {
     const [username, setUsername] = useState("");
@@ -22,12 +23,19 @@ export default function Login() {
         }
     };
 
+    const {theme, toggleTheme} = useTheme();
+
     return (
         <div>
             {/* ========================= ВЕРХНЯ ПАНЕЛЬ ========================= */}
             <div className="top-bar">
                 <div className="logo">Fyzikálne simulácie</div>
                 <div className={styles["top-right-buttons"]}>
+                    <button className="themeToggle" onClick={toggleTheme} aria-label="Toggle theme">
+                        <span className={`thumb ${theme === "dark" ? "dark" : "light"}`}>
+                            {theme === "dark" ? "🌙" : "☀️"}
+                        </span>
+                    </button>
                     <a href="/" className="btn">Domov</a>
                 </div>
             </div>

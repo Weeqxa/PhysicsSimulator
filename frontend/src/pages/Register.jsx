@@ -1,8 +1,9 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../services/api";
 import "../styles/Common.css";
 import styles from "../styles/Auth.module.css";
+import {useTheme} from "../context/ThemeContext.jsx";
 
 export default function Register() {
     const [username, setUsername] = useState("");
@@ -11,6 +12,7 @@ export default function Register() {
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
     const navigate = useNavigate();
+    const {theme, toggleTheme} = useTheme();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -34,6 +36,11 @@ export default function Register() {
             <div className="top-bar">
                 <div className="logo">Fyzikálne simulácie</div>
                 <div className={styles["top-right-buttons"]}>
+                    <button className="themeToggle" onClick={toggleTheme} aria-label="Toggle theme">
+                        <span className={`thumb ${theme === "dark" ? "dark" : "light"}`}>
+                            {theme === "dark" ? "🌙" : "☀️"}
+                        </span>
+                    </button>
                     <a href="/" className="btn">Domov</a>
                 </div>
             </div>

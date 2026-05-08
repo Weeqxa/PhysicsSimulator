@@ -120,7 +120,7 @@
 
 /* Hover ефект як у кнопок з neon */
 .card:hover {
-    background: #0d0d0d;
+    background: var(--color-card-hover);
     color: var(--color-accent);
     box-shadow: var(--shadow-neon);
     transform: translateY(-3px) scale(1.05);
@@ -128,10 +128,10 @@
 
 /* Вибрана картка — тепер без пульсації, просто легка підсвітка */
 .card.selected {
-    background: #0d0d0d;
+    background: var(--color-card);
     color: var(--color-accent);
-    box-shadow: 0 0 15px var(--color-accent), 0 0 24px rgba(0,0,0,0.1); /* легка підсвітка */
-    animation: none; /* прибираємо мерехтіння */
+    box-shadow: 0 0 15px var(--color-accent), 0 0 24px rgba(0,0,0,0.1);
+    animation: none;
 }
 
 @keyframes pulse {

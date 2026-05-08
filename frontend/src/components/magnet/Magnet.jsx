@@ -4,6 +4,9 @@ export default class Magnet {
         this.canvas = canvas;
         this.ctx = canvas.getContext("2d");
 
+        // THEME
+        this.theme = options.theme ?? "dark";
+
         // =========================
         // Вертикальний магніт
         // =========================
@@ -19,7 +22,7 @@ export default class Magnet {
         this.inertia = options.inertia ?? 0.15;
 
         // =========================
-        // Великі компаси (3x3)
+        // Компаси
         // =========================
         this.compasses = [];
         const rows = 3;
@@ -41,14 +44,14 @@ export default class Magnet {
             }
         }
 
-        // =========================
-        // Drag магніта
-        // =========================
+        // drag
         this.dragging = false;
+
         this.handleMouseDown = (e) => {
             const rect = this.canvas.getBoundingClientRect();
             const scaleX = this.canvas.width / rect.width;
             const scaleY = this.canvas.height / rect.height;
+
             const x = (e.clientX - rect.left) * scaleX;
             const y = (e.clientY - rect.top) * scaleY;
 
@@ -61,14 +64,18 @@ export default class Magnet {
                 this.dragging = true;
             }
         };
+
         this.handleMouseMove = (e) => {
             if (!this.dragging) return;
+
             const rect = this.canvas.getBoundingClientRect();
             const scaleX = this.canvas.width / rect.width;
             const scaleY = this.canvas.height / rect.height;
+
             this.magnet.x = (e.clientX - rect.left) * scaleX;
             this.magnet.y = (e.clientY - rect.top) * scaleY;
         };
+
         this.handleMouseUp = () => {
             this.dragging = false;
         };
@@ -82,7 +89,23 @@ export default class Magnet {
     }
 
     // =========================
-    // Магнітне поле
+    // THEME COLORS
+    // =========================
+    getColors() {
+        const isLight = this.theme === "light";
+
+        return {
+            magnetN: isLight ? "#d83a3a" : "#ff4444",
+            magnetS: isLight ? "#3b66ff" : "#4444ff",
+
+            fieldTop: isLight ? "#444" : "#555",
+            fieldBottom: isLight ? "#777" : "#888",
+
+            compassStroke: isLight ? "#444444" : "#fff",
+            text: isLight ? "#111" : "#fff"
+        };
+    }
+
     // =========================
     magneticField(px, py) {
         const dx = px - this.magnet.x;
@@ -90,30 +113,28 @@ export default class Magnet {
         let r2 = dx * dx + dy * dy;
         let r = Math.sqrt(r2);
         if (r < 30) r = 30;
+
         const factor = this.fieldStrength / (r * r * r);
-        return {bx: dx * factor, by: dy * factor};
+        return { bx: dx * factor, by: dy * factor };
     }
 
-    // =========================
-    // Фізика компасів
-    // =========================
     physics(dt) {
         this.compasses.forEach(c => {
             const B = this.magneticField(c.x, c.y);
             const targetAngle = Math.atan2(B.by, B.bx) + Math.PI;
+
             let diff = targetAngle - c.angle;
             diff = Math.atan2(Math.sin(diff), Math.cos(diff));
+
             c.angularVelocity += diff * this.inertia;
             c.angularVelocity *= this.damping;
             c.angle += c.angularVelocity * dt * 60;
         });
     }
 
-    // =========================
-// Маленькі, але збільшені стрілочки для силових ліній
-// =========================
     drawFieldVectors() {
         const ctx = this.ctx;
+        const colors = this.getColors();
         const spacing = 60;
 
         for (let x = spacing; x < this.canvas.width; x += spacing) {
@@ -126,22 +147,20 @@ export default class Magnet {
                 ctx.translate(x, y);
                 ctx.rotate(angle);
 
-                // верхня половина (темно-сіра)
                 ctx.beginPath();
                 ctx.moveTo(0, -8);
                 ctx.lineTo(4, 0);
                 ctx.lineTo(-4, 0);
                 ctx.closePath();
-                ctx.fillStyle = "#555";
+                ctx.fillStyle = colors.fieldTop;
                 ctx.fill();
 
-                // нижня половина (світліший сірий)
                 ctx.beginPath();
                 ctx.moveTo(0, 8);
                 ctx.lineTo(4, 0);
                 ctx.lineTo(-4, 0);
                 ctx.closePath();
-                ctx.fillStyle = "#888";
+                ctx.fillStyle = colors.fieldBottom;
                 ctx.fill();
 
                 ctx.restore();
@@ -149,118 +168,102 @@ export default class Magnet {
         }
     }
 
-    // =========================
-    // Вертикальний магніт (заокруглений)
-    // =========================
     drawMagnet() {
         const ctx = this.ctx;
-        const {x, y, width, height} = this.magnet;
-        const radius = 10; // радіус заокруглення
+        const colors = this.getColors();
 
-        // Північний полюс (червоний)
-        ctx.fillStyle = "#ff4444";
-        if (ctx.roundRect) {
-            ctx.beginPath();
-            ctx.roundRect(x - width / 2, y - height / 2, width, height / 2, radius);
-            ctx.fill();
-        } else {
-            // fallback для браузерів без roundRect
-            ctx.beginPath();
-            ctx.moveTo(x - width / 2 + radius, y - height / 2);
-            ctx.lineTo(x + width / 2 - radius, y - height / 2);
-            ctx.quadraticCurveTo(x + width / 2, y - height / 2, x + width / 2, y - height / 2 + radius);
-            ctx.lineTo(x + width / 2, y - height / 2 + height / 2 - radius);
-            ctx.quadraticCurveTo(x + width / 2, y - height / 2 + height / 2, x + width / 2 - radius, y - height / 2 + height / 2);
-            ctx.lineTo(x - width / 2 + radius, y - height / 2 + height / 2);
-            ctx.quadraticCurveTo(x - width / 2, y - height / 2 + height / 2, x - width / 2, y - height / 2 + height / 2 - radius);
-            ctx.lineTo(x - width / 2, y - height / 2 + radius);
-            ctx.quadraticCurveTo(x - width / 2, y - height / 2, x - width / 2 + radius, y - height / 2);
-            ctx.closePath();
-            ctx.fill();
-        }
+        const { x, y, width, height } = this.magnet;
+        const radius = 10;
 
-        // Південний полюс (синій)
-        ctx.fillStyle = "#4444ff";
-        if (ctx.roundRect) {
-            ctx.beginPath();
-            ctx.roundRect(x - width / 2, y, width, height / 2, radius);
-            ctx.fill();
-        } else {
-            // можна зробити аналогічно вручну через криві
-            ctx.beginPath();
-            ctx.moveTo(x - width / 2 + radius, y);
-            ctx.lineTo(x + width / 2 - radius, y);
-            ctx.quadraticCurveTo(x + width / 2, y, x + width / 2, y + height / 2 - radius);
-            ctx.lineTo(x + width / 2, y + height / 2 - radius);
-            ctx.quadraticCurveTo(x + width / 2, y + height / 2, x + width / 2 - radius, y + height / 2);
-            ctx.lineTo(x - width / 2 + radius, y + height / 2);
-            ctx.quadraticCurveTo(x - width / 2, y + height / 2, x - width / 2, y + height / 2 - radius);
-            ctx.lineTo(x - width / 2, y + radius);
-            ctx.quadraticCurveTo(x - width / 2, y, x - width / 2 + radius, y);
-            ctx.closePath();
-            ctx.fill();
-        }
+        // N
+        ctx.fillStyle = colors.magnetN;
+        ctx.beginPath();
+        ctx.roundRect(x - width / 2, y - height / 2, width, height / 2, radius);
+        ctx.fill();
 
-        // Маркування полюсів
-        ctx.fillStyle = "white";
+        // S
+        ctx.fillStyle = colors.magnetS;
+        ctx.beginPath();
+        ctx.roundRect(x - width / 2, y, width, height / 2, radius);
+        ctx.fill();
+
+        ctx.fillStyle = colors.text;
         ctx.font = "16px Arial";
         ctx.fillText("N", x - 6, y - 30);
         ctx.fillText("S", x - 6, y + 40);
     }
 
-    // =========================
-    // Великі компаси
-    // =========================
     drawCompasses() {
+        const ctx = this.ctx;
+        const colors = this.getColors();
+
         this.compasses.forEach(c => {
-            const ctx = this.ctx;
+            const radius = 25;
+
             ctx.save();
             ctx.translate(c.x, c.y);
-            ctx.rotate(c.angle);
 
+            // =========================
+            // BACKGROUND CIRCLE (НОВЕ)
+            // =========================
             ctx.beginPath();
-            ctx.moveTo(0, -20);
-            ctx.lineTo(8, 0);
-            ctx.lineTo(-8, 0);
-            ctx.closePath();
-            ctx.fillStyle = "red";
+            ctx.arc(0, 0, radius, 0, Math.PI * 2);
+
+            ctx.fillStyle =
+                this.theme === "light"
+                    ? "rgba(255, 255, 255, 0.7)"
+                    : "rgba(30, 30, 30, 0.6)";
+
             ctx.fill();
 
+            ctx.strokeStyle = colors.compassStroke;
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // =========================
+            // NEEDLE
+            // =========================
+            ctx.rotate(c.angle);
+
+            // TOP (N)
+            ctx.beginPath();
+            ctx.moveTo(0, -20);
+            ctx.lineTo(7, 0);
+            ctx.lineTo(-7, 0);
+            ctx.closePath();
+            ctx.fillStyle = "#ff4444";
+            ctx.fill();
+
+            // BOTTOM (S)
             ctx.beginPath();
             ctx.moveTo(0, 20);
-            ctx.lineTo(8, 0);
-            ctx.lineTo(-8, 0);
+            ctx.lineTo(7, 0);
+            ctx.lineTo(-7, 0);
             ctx.closePath();
-            ctx.fillStyle = "white";
+            ctx.fillStyle = "#4444ff";
             ctx.fill();
 
             ctx.restore();
 
-            ctx.beginPath();
-            ctx.arc(c.x, c.y, 25, 0, Math.PI * 2);
-            ctx.strokeStyle = "white";
-            ctx.lineWidth = 2;
-            ctx.stroke();
-
+            // =========================
+            // CENTER DOT
+            // =========================
             ctx.beginPath();
             ctx.arc(c.x, c.y, 3, 0, Math.PI * 2);
-            ctx.fillStyle = "white";
+            ctx.fillStyle = colors.compassStroke;
             ctx.fill();
         });
     }
 
-    // =========================
-    // Основний малюнок
-    // =========================
     draw() {
         const ctx = this.ctx;
         ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         this.physics(0.016);
 
-        this.drawFieldVectors(); // силові лінії
+        this.drawFieldVectors();
         this.drawMagnet();
-        this.drawCompasses();    // великі компаси
+        this.drawCompasses();
 
         this.animationId = requestAnimationFrame(this.draw);
     }
@@ -269,10 +272,11 @@ export default class Magnet {
         if (!this.animationId) this.animationId = requestAnimationFrame(this.draw);
     }
 
-    updateParameters({fieldStrength, damping, inertia}) {
+    updateParameters({ fieldStrength, damping, inertia, theme }) {
         if (fieldStrength !== undefined) this.fieldStrength = fieldStrength;
         if (damping !== undefined) this.damping = damping;
         if (inertia !== undefined) this.inertia = inertia;
+        if (theme !== undefined) this.theme = theme;
     }
 
     destroy() {

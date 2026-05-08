@@ -40,7 +40,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    gap: 40px;
+
 
     margin-left: 60px;
 }
@@ -88,7 +88,7 @@
     background: var(--color-bg-main);
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 4px 12px var(--shadow-panel);
+    box-shadow: var(--shadow-panel);
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -112,6 +112,63 @@ input[type=range] { flex: 2; accent-color: var(--color-accent); }
     justify-content: space-between;
     gap: 15px;
 }
+
+
+
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 28px;
+    margin-left: 10px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* Повзунок */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #555; /* фон, коли вимкнено */
+    transition: 0.4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 3px;
+    bottom: 3px;
+    background-color: #fff; /* круг всередині */
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+/* Коли checked */
+input:checked + .slider {
+    background-color: var(--color-accent); /* активний колір акцент */
+}
+
+input:checked + .slider:before {
+    transform: translateX(22px);
+    background-color: #fff;
+}
+
+
+
+
+
 
 /* =========================
    Адаптивність для планшетів і мобільних

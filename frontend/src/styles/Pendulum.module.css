@@ -3,14 +3,14 @@
 ========================= */
 .simulationContainer {
     display: flex;
-    justify-content: center;  /* горизонтально центр */
-    align-items: center;      /* вертикально центр */
+    justify-content: center;
+    align-items: center;
     gap: 40px;
     padding: 20px;
     box-sizing: border-box;
     flex-direction: row;
-    height: calc(100vh - 70px); /* висота екрану мінус топ-панель */
-    overflow: hidden; /* щоб нічого не вилізло */
+    height: calc(100vh - 70px);
+    overflow: hidden;
 }
 
 /* =========================
@@ -34,7 +34,9 @@
     border-radius: 12px;
 }
 
-/* Колонка праворуч: вертикальний стек */
+/* =========================
+   Права колонка
+========================= */
 .controlsColumn {
     flex: 0 0 700px;
     display: flex;
@@ -42,12 +44,11 @@
     justify-content: flex-start;
     align-items: flex-start;
     gap: 20px;
-
     margin-right: 70px;
 }
 
 /* =========================
-   Текстове пояснення зверху праворуч
+   Інфо текст
 ========================= */
 .infoText {
     text-align: left;
@@ -59,16 +60,7 @@
     animation: floatReverse 6s ease-in-out infinite alternate;
 }
 
-/* Плавне плавання (протилежний напрямок до заголовка) */
-@keyframes floatReverse {
-    0% { transform: translate(0px,0px) rotate(0deg);}
-    25% { transform: translate(-2px,1px) rotate(-0.2deg);}
-    50% { transform: translate(2px,-1px) rotate(0.2deg);}
-    75% { transform: translate(-1px,2px) rotate(-0.1deg);}
-    100% { transform: translate(0px,0px) rotate(0deg);}
-}
-
-/* Акцентні слова */
+/* Акцент */
 .infoText .highlight {
     color: var(--color-accent);
     font-weight: 700;
@@ -77,19 +69,14 @@
     animation: pulse 2s infinite;
 }
 
-@keyframes pulse {
-    0%, 100% { text-shadow: 0 0 1px var(--color-accent), 0 0 2px var(--color-accent);}
-    50% { text-shadow: 0 0 2px var(--color-accent), 0 0 4px var(--color-accent);}
-}
-
 /* =========================
-   Панель керування
+   Панель керування (FIXED)
 ========================= */
 .controls {
     background: var(--color-bg-main);
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 4px 12px var(--shadow-panel);
+    box-shadow: var(--shadow-panel);
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -97,17 +84,63 @@
     color: var(--color-text-main);
 }
 
-/* Ряди слайдерів */
+/* Рядки */
 .row {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-label { flex: 1; }
-input[type=range] { flex: 2; accent-color: var(--color-accent); }
+label {
+    flex: 1;
+}
 
-/* Кнопки */
+/* =========================
+   SLIDER (FIXED DARK + LIGHT)
+========================= */
+input[type="range"] {
+    flex: 2;
+    -webkit-appearance: none;
+    appearance: none;
+
+    height: 4px;
+    border-radius: 10px;
+    outline: none;
+    cursor: pointer;
+
+    /* fallback (JS оновить gradient) */
+    background: linear-gradient(
+            to right,
+            var(--color-accent) 0%,
+            var(--color-accent) 50%,
+            var(--color-border) 50%,
+            var(--color-border) 100%
+    );
+}
+
+/* thumb - Chrome/Safari */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    box-shadow: var(--shadow-neon);
+}
+
+/* thumb - Firefox */
+input[type="range"]::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    box-shadow: var(--shadow-neon);
+    border: none;
+}
+
+/* =========================
+   Кнопки
+========================= */
 .buttons {
     display: flex;
     justify-content: space-between;
@@ -115,13 +148,33 @@ input[type=range] { flex: 2; accent-color: var(--color-accent); }
 }
 
 /* =========================
-   Адаптивність для планшетів і мобільних
+   ANIMATIONS
+========================= */
+@keyframes floatReverse {
+    0% { transform: translate(0px,0px) rotate(0deg);}
+    25% { transform: translate(-2px,1px) rotate(-0.2deg);}
+    50% { transform: translate(2px,-1px) rotate(0.2deg);}
+    75% { transform: translate(-1px,2px) rotate(-0.1deg);}
+    100% { transform: translate(0px,0px) rotate(0deg);}
+}
+
+@keyframes pulse {
+    0%, 100% {
+        text-shadow: 0 0 1px var(--color-accent), 0 0 2px var(--color-accent);
+    }
+    50% {
+        text-shadow: 0 0 2px var(--color-accent), 0 0 4px var(--color-accent);
+    }
+}
+
+/* =========================
+   RESPONSIVE
 ========================= */
 @media (max-width: 900px) {
     .simulationContainer {
-        flex-direction: column; /* вертикальна структура */
+        flex-direction: column;
         align-items: center;
-        justify-content: flex-start; /* початок зверху */
+        justify-content: flex-start;
         height: auto;
         gap: 30px;
     }
@@ -142,15 +195,12 @@ input[type=range] { flex: 2; accent-color: var(--color-accent); }
 
     .controls {
         width: 90%;
-        max-width: none;
         padding: 20px;
-        gap: 25px;
     }
 
     .infoText {
         font-size: 16px;
         text-align: center;
-        margin-top: auto; /* текст буде внизу */
     }
 
     .infoText .highlight {
@@ -170,7 +220,6 @@ input[type=range] { flex: 2; accent-color: var(--color-accent); }
 
     .canvas {
         width: 95%;
-        height: auto;
     }
 
     .controls {

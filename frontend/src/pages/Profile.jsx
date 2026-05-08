@@ -1,10 +1,12 @@
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { getProfile, uploadAvatar, getAvatarUrl, updateProfile } from "../services/api";
 import styles from "../styles/Profile.module.css";
 import "../styles/Common.css";
+import {useTheme} from "../context/ThemeContext.jsx";
 
 export default function Profile() {
     const [user, setUser] = useState(null);
+    const {theme, toggleTheme} = useTheme();
 
     const [isAvatarEditing, setIsAvatarEditing] = useState(false);
     const [newAvatar, setNewAvatar] = useState(null);
@@ -111,6 +113,11 @@ export default function Profile() {
             <div className="top-bar">
                 <div className="logo">Fyzikálne simulácie</div>
                 <div className="top-right-buttons">
+                    <button className="themeToggle" onClick={toggleTheme} aria-label="Toggle theme">
+                        <span className={`thumb ${theme === "dark" ? "dark" : "light"}`}>
+                            {theme === "dark" ? "🌙" : "☀️"}
+                        </span>
+                    </button>
                     <a href="/" className="btn">Domov</a>
                 </div>
             </div>

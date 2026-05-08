@@ -1,5 +1,3 @@
-// src/components/pendulum/Pendulum.js
-
 export default class Pendulum {
     constructor(canvas) {
         this.canvas = canvas;
@@ -18,6 +16,20 @@ export default class Pendulum {
 
         this.draw = this.draw.bind(this);
         this.start();
+    }
+
+    // =========================
+    // THEME COLORS
+    // =========================
+    getColors() {
+        const theme = document.documentElement.getAttribute("data-theme");
+
+        return {
+            bob: theme === "dark" ? "#9c81e1" : "#3b82f6",
+            string: theme === "dark"
+                ? "rgba(255,255,255,0.8)"
+                : "rgba(0,0,0,0.7)"
+        };
     }
 
     start() {
@@ -52,6 +64,8 @@ export default class Pendulum {
         const ctx = this.ctx;
         ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
+        const colors = this.getColors();
+
         const originX = this.canvas.width / 2;
         const originY = 50;
 
@@ -62,16 +76,17 @@ export default class Pendulum {
         ctx.beginPath();
         ctx.moveTo(originX, originY);
         ctx.lineTo(x, y);
-        ctx.strokeStyle = "rgba(255, 255, 255, 0.8)";
+
+        ctx.strokeStyle = colors.string;
         ctx.lineWidth = 1;
-        ctx.shadowColor = "rgba(255, 255, 255, 0.5)";
+        ctx.shadowColor = "rgba(255, 255, 255, 0.3)";
         ctx.shadowBlur = 10;
         ctx.stroke();
 
-        // Груша
+        // ГРУША (🎯 ТЕПЕР ЗМІННА)
         ctx.beginPath();
         ctx.arc(x, y, 15, 0, Math.PI * 2);
-        ctx.fillStyle = "#9c81e1";
+        ctx.fillStyle = colors.bob;
         ctx.fill();
 
         // Фізика

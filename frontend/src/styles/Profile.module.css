@@ -185,3 +185,32 @@
     gap: 10px;
     flex-wrap: wrap;
 }
+
+/* =========================
+   LIGHT THEME FIX (PROFILE)
+   ONLY LIGHT — DARK НЕ ЧІПАЄМО
+========================= */
+
+[data-theme="light"] .profile-field,
+[data-theme="light"] .profile-field-bio {
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+}
+
+[data-theme="light"] .profile-form-group input,
+[data-theme="light"] .profile-form-group textarea {
+    background: var(--color-card);
+    color: var(--color-text-main);
+    border: 1px solid var(--color-border);
+}
+
+[data-theme="light"] .file-upload-label {
+    background: var(--color-card);
+    color: var(--color-text-main);
+    border: 1px solid var(--color-border);
+}
+
+[data-theme="light"] .file-upload-label:hover {
+    background: var(--color-card-hover);
+    color: var(--color-accent);
+}

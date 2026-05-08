@@ -161,7 +161,7 @@
     width: 250px;
     display: flex;
     flex-direction: column;
-    background: #2c2c2c;
+    background: var(--color-card);
     border-radius: 18px;
     overflow: hidden;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
@@ -172,7 +172,7 @@
 }
 
 .sim-card:hover {
-    background-color: #1a1a1a;
+    background-color: var(--color-card-hover);
     color: var(--color-accent);
     box-shadow: var(--shadow-neon);
     transform: translateY(-6px);
@@ -191,7 +191,7 @@
 }
 
 .placeholder {
-    background: #333;
+    background: var(--color-border);
     border-bottom: 4px solid #555;
 }
 
@@ -226,6 +226,9 @@ footer {
     padding: 20px;
     color: #ccc;
 }
+
+
+
 
 
 /* ==========================

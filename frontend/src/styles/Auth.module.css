@@ -81,13 +81,36 @@ input[type="email"]:focus {
 /* Топ-праві кнопки у header */
 .top-right-buttons {
     display: flex;
-    gap: 10px;
+    align-items: center;
+    gap: 20px;
 }
 
-/* Адаптивність */
-@media (max-width: 500px) {
-    .auth-container {
-        padding: 30px 20px;
-        gap: 20px;
-    }
+/* =========================
+   LIGHT THEME ONLY (DON'T TOUCH DARK)
+========================= */
+
+[data-theme="light"] input[type="text"],
+[data-theme="light"] input[type="password"],
+[data-theme="light"] input[type="email"] {
+    background: #ffffff;
+    color: #111;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+/* focus у світлій темі */
+[data-theme="light"] input[type="text"]:focus,
+[data-theme="light"] input[type="password"]:focus,
+[data-theme="light"] input[type="email"]:focus {
+    border: 1px solid var(--color-accent);
+    box-shadow: 0 0 6px var(--color-accent);
+}
+
+/* placeholder світла тема */
+[data-theme="light"] input::placeholder {
+    color: rgba(0, 0, 0, 0.4);
+}
+
+/* контейнер тексту в світлій темі (щоб не був темний) */
+[data-theme="light"] .auth-container {
+    color: #111;
 }
